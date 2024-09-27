@@ -27,7 +27,6 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@as-integrations/next": "^3.1.0",
     "@hookform/resolvers": "^3.9.0",
     "@prisma/client": "^5.19.1",
     "@tabler/icons-react": "^3.16.0",
