@@ -1,4 +1,3 @@
-import { CategoryModel } from "@/models/api-response";
 import Link from "next/link";
 import { LastPost } from "./last-post";
 

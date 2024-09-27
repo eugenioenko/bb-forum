@@ -9,31 +9,3 @@ export interface UserModel {
   username: string;
   email: string;
 }
-
-export interface PostModel {
-  id: string;
-  content: string;
-  createdAt: string;
-  user: UserModel;
-}
-
-export interface ThreadModel {
-  id: string;
-  title: string;
-  posts: PostModel[];
-  createdAt: string;
-}
-
-export interface CategoryModel {
-  id: string;
-  name: string;
-  description: string;
-  threads: ThreadModel[];
-  createdAt: string;
-}
-
-export interface SectionModel {
-  id: string;
-  name: string;
-  categories: CategoryModel[];
-}

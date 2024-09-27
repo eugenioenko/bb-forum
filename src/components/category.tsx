@@ -1,26 +1,14 @@
 "use client";
 
 import { Threads } from "./threads";
-import { Skeleton } from "./skeleton";
 import { Editor } from "./editor";
-import { useCategoryQuery } from "@/queries/client/use-category";
+import { CategoryModel } from "@/queries/server/category.prisma";
+
 interface Props {
-  id: string;
+  category: CategoryModel;
 }
 
-export const Category = ({ id }: Props) => {
-  const { data, loading, error } = useCategoryQuery(id);
-
-  if (loading) {
-    return <Skeleton />;
-  }
-
-  if (error || !data) {
-    return "error";
-  }
-
-  console.log(data);
-
+export const Category = ({ category }: Props) => {
   return (
     <div className="pt-4 flex flex-col gap-4">
       <div className="card">
@@ -34,10 +22,10 @@ export const Category = ({ id }: Props) => {
           </div>
         </div>
         <div>
-          <Threads threads={data.category.threads || []} />
+          <Threads threads={category.threads || []} />
         </div>
       </div>
-      <Editor categoryId={data.category.id} />
+      <Editor categoryId={category.id} />
     </div>
   );
 };

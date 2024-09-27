@@ -1,14 +1,10 @@
 "use client";
 
-import { useThreadQuery } from "@/queries/client/use-threads";
-
 interface Props {
   id: string;
 }
 
 export const Thread = ({ id }: Props) => {
-  const { data, isLoading } = useThreadQuery();
-
   return (
     <div className="pt-4 flex flex-col gap-4">
       <div className="card">

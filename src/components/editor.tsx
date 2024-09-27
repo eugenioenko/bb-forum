@@ -22,10 +22,10 @@ export const Editor = ({ categoryId }: Props) => {
     },
   });
 
-  const [createThreadMutation, { loading }] = useCreateThreadMutation();
+  // const [createThreadMutation, { loading }] = useCreateThreadMutation();
 
   const doSubmit: SubmitHandler<ThreadSchemaType> = async (data) => {
-    await createThreadMutation({
+    /*await createThreadMutation({
       variables: {
         input: {
           categoryId: categoryId || "",
@@ -33,7 +33,7 @@ export const Editor = ({ categoryId }: Props) => {
           title: data.title,
         },
       },
-    });
+    });*/
   };
 
   return (
@@ -54,9 +54,7 @@ export const Editor = ({ categoryId }: Props) => {
         )}
       </div>
       <div className="flex justify-end">
-        <Button type="submit" isLoading={loading}>
-          Create
-        </Button>
+        <Button type="submit">Create</Button>
       </div>
     </form>
   );
