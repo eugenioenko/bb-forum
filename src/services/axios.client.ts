@@ -57,6 +57,7 @@ function createAxiosInstance(): AxiosInstance {
         auth.setAuthUser(null);
         return Promise.reject(refreshError);
       }
+      return Promise.reject(error);
     }
   );
 

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const ThreadSchema = z.object({
-  categoryId: z.string().uuid().optional(),
+  categoryId: z.string().uuid(),
   threadId: z.string().uuid().optional(),
   title: z.string().min(4),
   content: z.string().min(1),

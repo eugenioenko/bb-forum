@@ -8,6 +8,7 @@ import { AuthUserModel } from "@/models/auth-user";
 import { sign, verify } from "jsonwebtoken";
 import { validateSchemaOrThrow } from "@/utils/validate-request";
 import { IdSchema, IdSchemaType } from "@/schemas/id-schema";
+import type { NextRequest } from "next/server";
 
 export async function loginUserOrThrow(
   credentials: SignupSchemaType
@@ -71,15 +72,15 @@ function createRefreshToken(userId: string): string {
   return sign({ id: userId }, secretKey, { expiresIn });
 }
 
-export function userIdFromToken(token: string): IdSchemaType | null {
-  try {
-    if (token) {
-      const decoded = verify(token, process.env.ACCESS_TOKEN_SECRET_KEY || "");
-      return validateSchemaOrThrow(IdSchema, decoded);
-    }
-    return null;
-  } catch (err) {
-    console.error("Invalid token:", err);
-    return null;
+export function authUserOrThrow(request: NextRequest): IdSchemaType {
+  const authorization = request.headers.get("authorization");
+  if (!authorization) {
+    throw new Error("Authorization required");
   }
+  const token = authorization.split("Bearer ")[1];
+  if (!token) {
+    throw new Error("Authorization required");
+  }
+  const decoded = verify(token, process.env.ACCESS_TOKEN_SECRET_KEY || "");
+  return validateSchemaOrThrow(IdSchema, decoded);
 }

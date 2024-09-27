@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./button";
 import { ThreadSchemaType, ThreadSchema } from "@/schemas/thread-schema";
+import { useCreateThreadMutation } from "@/queries/client/use-create-thread";
 
 interface Props {
   categoryId?: string;
@@ -22,18 +23,14 @@ export const Editor = ({ categoryId }: Props) => {
     },
   });
 
-  // const [createThreadMutation, { loading }] = useCreateThreadMutation();
+  const { mutate, isPending, error } = useCreateThreadMutation();
 
   const doSubmit: SubmitHandler<ThreadSchemaType> = async (data) => {
-    /*await createThreadMutation({
-      variables: {
-        input: {
-          categoryId: categoryId || "",
-          content: data.content,
-          title: data.title,
-        },
-      },
-    });*/
+    mutate({
+      categoryId: categoryId || "",
+      content: data.content,
+      title: data.title,
+    });
   };
 
   return (
@@ -53,8 +50,11 @@ export const Editor = ({ categoryId }: Props) => {
           <span className="error">{errors.content.message}</span>
         )}
       </div>
+      {error && <div className="text-red-600 text-center">{error.message}</div>}
       <div className="flex justify-end">
-        <Button type="submit">Create</Button>
+        <Button type="submit" isLoading={isPending}>
+          Create
+        </Button>
       </div>
     </form>
   );

@@ -1,6 +1,6 @@
 import prisma from "@/services/prisma.client";
 
-export type Category = Awaited<ReturnType<typeof queryCategory>>;
+export type CategoryModel = Awaited<ReturnType<typeof queryCategory>>;
 export const queryCategory = async (categoryId: string) =>
   await prisma.category.findUniqueOrThrow({
     where: {
