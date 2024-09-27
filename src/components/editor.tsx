@@ -1,10 +1,8 @@
 "use client";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Logo } from "./logo";
 import { Button } from "./button";
 import { ThreadSchemaType, ThreadSchema } from "@/schemas/thread-schema";
-import { useCreateThreadMutation } from "@/graphql/generated/schema";
 
 interface Props {
   categoryId?: string;

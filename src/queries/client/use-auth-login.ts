@@ -1,7 +1,7 @@
 import { ApiResponse } from "@/models/api-response";
 import { AuthUserModel } from "@/models/auth-user";
 import { SignupSchemaType } from "@/schemas/login-schema";
-import { client } from "@/services/axios";
+import { client } from "@/services/axios.client";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 

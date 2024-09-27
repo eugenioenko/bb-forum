@@ -1,10 +1,9 @@
 "use client";
 
 import { ScriptProps } from "next/script";
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { AxiosInstance } from "axios";
+import React, { createContext, useEffect, useState } from "react";
 import { useAuthStore } from "@/stores/auth";
-import { client, refreshAuthToken } from "@/services/axios";
+import { refreshAuthToken, client } from "@/services/axios.client";
 
 export const AxiosContext = createContext<null>(null);
 

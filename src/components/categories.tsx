@@ -1,10 +1,9 @@
 import { CategoryModel } from "@/models/api-response";
 import Link from "next/link";
 import { LastPost } from "./last-post";
-import { Category } from "@/graphql/generated/schema";
 
 interface Props {
-  categories: Partial<Category>[];
+  categories: any[];
 }
 
 export const Categories = ({ categories }: Props) => {

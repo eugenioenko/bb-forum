@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/auth";
 import { IconFidgetSpinner } from "@tabler/icons-react";
-import { useAuthLogoutMutation } from "@/queries/use-auth-logout";
+import { useAuthLogoutMutation } from "@/queries/client/use-auth-logout";
 
 export const Logout = () => {
   const mutation = useAuthLogoutMutation();

@@ -1,19 +1,15 @@
 "use client";
 
 import { Threads } from "./threads";
-import { useCategoryByIdQuery } from "@/graphql/generated/schema";
 import { Skeleton } from "./skeleton";
 import { Editor } from "./editor";
+import { useCategoryQuery } from "@/queries/client/use-category";
 interface Props {
   id: string;
 }
 
 export const Category = ({ id }: Props) => {
-  const { data, loading, error } = useCategoryByIdQuery({
-    variables: {
-      id,
-    },
-  });
+  const { data, loading, error } = useCategoryQuery(id);
 
   if (loading) {
     return <Skeleton />;

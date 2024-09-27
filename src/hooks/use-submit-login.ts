@@ -3,7 +3,7 @@ import { SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/auth";
-import { useAuthLoginMutation } from "@/queries/use-auth-login";
+import { useAuthLoginMutation } from "@/queries/client/use-auth-login";
 import { SignupSchemaType } from "@/schemas/login-schema";
 
 export const useSubmitLogin = () => {

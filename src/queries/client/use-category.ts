@@ -1,5 +1,5 @@
-import { client } from "@/services/axios";
 import { ApiResponse, CategoryModel } from "@/models/api-response";
+import { client } from "@/services/axios.client";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 

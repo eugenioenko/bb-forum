@@ -1,23 +1,17 @@
 "use client";
 
-import { useHomeSectionsQuery } from "@/graphql/generated/schema";
+import { HomePageModel } from "@/queries/server/home.prisma";
 import { Categories } from "./categories";
-import { Skeleton } from "./skeleton";
+import { useEffect } from "react";
+import { client } from "@/services/axios.client";
 
-export const Home = () => {
-  const { data, loading, error } = useHomeSectionsQuery();
-
-  if (loading) {
-    return <Skeleton />;
-  }
-
-  if (error || !data) {
-    return "error";
-  }
-
+interface Props {
+  sections: HomePageModel;
+}
+export const Home = ({ sections }: Props) => {
   return (
     <div className="pt-4 flex flex-col gap-4">
-      {data.sections.map((section) => (
+      {sections.map((section) => (
         <div key={section.id} className="card">
           <div className="bg-primary  font-header text-white">
             <div className="grid grid-cols-1 md:grid-cols-12 px-2 py-1.5">

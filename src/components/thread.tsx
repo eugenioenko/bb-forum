@@ -1,6 +1,6 @@
 "use client";
 
-import { useThreadQuery } from "@/queries/use-threads";
+import { useThreadQuery } from "@/queries/client/use-threads";
 
 interface Props {
   id: string;
