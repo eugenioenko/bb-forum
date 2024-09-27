@@ -2,8 +2,6 @@
 
 import { HomePageModel } from "@/queries/server/home.prisma";
 import { Categories } from "./categories";
-import { useEffect } from "react";
-import { client } from "@/services/axios.client";
 
 interface Props {
   sections: HomePageModel;

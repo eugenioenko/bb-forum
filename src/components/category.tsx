@@ -3,12 +3,24 @@
 import { Threads } from "./threads";
 import { Editor } from "./editor";
 import { CategoryModel } from "@/queries/server/category.prisma";
+import { useEffect, useState } from "react";
+import { useCategoryQuery } from "@/queries/client/use-category";
 
 interface Props {
   category: CategoryModel;
 }
 
-export const Category = ({ category }: Props) => {
+export const Category = (props: Props) => {
+  const [category, setCategory] = useState(props.category);
+
+  const { data } = useCategoryQuery(props.category.id, category);
+
+  useEffect(() => {
+    if (data?.data) {
+      setCategory(data.data);
+    }
+  }, [data]);
+
   return (
     <div className="pt-4 flex flex-col gap-4">
       <div className="card">
@@ -22,7 +34,7 @@ export const Category = ({ category }: Props) => {
           </div>
         </div>
         <div>
-          <Threads threads={category.threads || []} />
+          <Threads threads={category?.threads || []} />
         </div>
       </div>
       <Editor categoryId={category.id} />

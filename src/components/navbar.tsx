@@ -59,9 +59,7 @@ export const Navbar = () => {
         </div>
         <div className="flex-grow">
           <div className="text-5xl font-header">Bulletin Board</div>
-          <div className="text-lg font-thin">
-            Forum powered by React and Node.js
-          </div>
+          <div className="text-lg font-thin">Forum powered by Next.js</div>
         </div>
       </div>
       <nav className="bg-primary text-white text-sm gap-4 flex px-4 py-1.5 justify-between">
