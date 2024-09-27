@@ -3,23 +3,17 @@
 import { Threads } from "./threads";
 import { Editor } from "./editor";
 import { CategoryModel } from "@/queries/server/category.prisma";
-import { useEffect, useState } from "react";
-import { useCategoryQuery } from "@/queries/client/use-category";
+import { usePrefetchedQuery } from "@/utils/use-prefetched-query";
 
 interface Props {
   category: CategoryModel;
 }
 
 export const Category = (props: Props) => {
-  const [category, setCategory] = useState(props.category);
-
-  const { data } = useCategoryQuery(props.category.id, category);
-
-  useEffect(() => {
-    if (data?.data) {
-      setCategory(data.data);
-    }
-  }, [data]);
+  const { data: category } = usePrefetchedQuery(
+    `/api/category/${props.category.id}`,
+    props.category
+  );
 
   return (
     <div className="pt-4 flex flex-col gap-4">
