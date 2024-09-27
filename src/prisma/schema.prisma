@@ -1,0 +1,94 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "erd.pdf"
+}
+
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  username  String
+  password  String
+  posts     Post[]
+  threads   Thread[]
+  profile   Profile?
+  userRoles UserRole[]
+
+  createdAt DateTime @default(now())
+  lastLogin DateTime @default(now()) @updatedAt
+  updatedAt DateTime @updatedAt
+}
+
+model Role {
+  id          String     @id @unique
+  description String
+  createdAt   DateTime   @default(now())
+  userRole    UserRole[]
+}
+
+model UserRole {
+  userId    String
+  roleId    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  role      Role     @relation(fields: [roleId], references: [id])
+
+  @@id(name: "id", [userId, roleId])
+}
+
+model Profile {
+  id        String   @id @default(uuid())
+  bio       String?  @db.Text
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Section {
+  id         String     @id @default(uuid())
+  name       String
+  categories Category[]
+  createdAt  DateTime   @default(now())
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  name        String
+  description String?  @db.Text
+  sectionId   String
+  section     Section  @relation(fields: [sectionId], references: [id])
+  threads     Thread[]
+  createdAt   DateTime @default(now())
+}
+
+model Thread {
+  id         String   @id @default(uuid())
+  categoryId String
+  title      String
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
+  posts      Post[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  content   String   @db.Text
+  userId    String
+  threadId  String
+  user      User     @relation(fields: [userId], references: [id])
+  thread    Thread   @relation(fields: [threadId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
