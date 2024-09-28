@@ -1,14 +1,21 @@
+import { apiPageSize, ApiQueryArgs } from "@/models/api-request";
 import prisma from "@/services/prisma.client";
 
 export type CategoryModel = Awaited<ReturnType<typeof queryCategory>>;
-export const queryCategory = async (categoryId: string) =>
+export const queryCategory = async (categoryId: string, args?: ApiQueryArgs) =>
   await prisma.category.findUniqueOrThrow({
     where: {
       id: categoryId,
     },
     include: {
+      _count: {
+        select: {
+          threads: true,
+        },
+      },
       threads: {
-        take: 10,
+        take: args?.take || apiPageSize,
+        skip: args?.skip || 0,
         orderBy: {
           createdAt: "asc",
         },

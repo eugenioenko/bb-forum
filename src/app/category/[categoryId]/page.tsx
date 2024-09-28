@@ -1,17 +1,26 @@
 import { Category } from "@/components/category";
-import { Home } from "@/components/home";
 import { ServerError } from "@/components/server-error";
-import { queryCategory } from "@/queries/server/category.prisma";
+import { CategoryModel } from "@/queries/server/category.prisma";
+import { axiosFetch } from "@/utils/axios-fetch";
+
+interface PageProps {
+  searchParams: { [key: string]: string | undefined };
+  params: { categoryId: string | undefined };
+}
 
 export default async function CategoryPage({
   params,
-}: {
-  params: { categoryId: string };
-}) {
-  try {
-    const category = await queryCategory(params.categoryId);
-    return <Category category={category} />;
-  } catch (e) {
-    return <ServerError error={e} />;
+  searchParams,
+}: PageProps) {
+  const res = await axiosFetch<CategoryModel>(
+    `/api/category/${params.categoryId}?skip=${searchParams.skip}`
+  );
+
+  if (res.error) {
+    return <ServerError error={res.error} />;
+  } else if (res.data) {
+    return <Category response={res} />;
+  } else {
+    return <ServerError error="Unexpected Error" />;
   }
 }

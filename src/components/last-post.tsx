@@ -1,7 +1,4 @@
-import { ThreadModel } from "@/models/api-response";
-import { UserLink } from "./user-link";
-import { formatDate } from "@/utils/format-date";
-import { Thread } from "@/graphql/generated/schema";
+import { Thread } from "@prisma/client";
 
 interface Props {
   thread: Partial<Thread>;
@@ -17,8 +14,6 @@ export const LastPost = ({ thread, showDate }: Props) => {
       <div className="text-nowrap text-ellipsis overflow-hidden">
         {thread.title}
       </div>
-      <div>todo</div>
-      todo
     </div>
   );
 };

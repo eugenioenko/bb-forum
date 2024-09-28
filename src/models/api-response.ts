@@ -1,5 +1,6 @@
 export interface ApiResponse<T> {
   error?: string;
+  skip?: number;
   data: T;
 }
 

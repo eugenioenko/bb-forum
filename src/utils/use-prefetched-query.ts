@@ -11,9 +11,12 @@ export function usePrefetchedQuery<T>(endpoint: string, initialData: T) {
     queryKey: [endpoint],
     queryFn: () => client.get(endpoint).then((res) => res.data),
     refetchOnMount: false,
-    initialData: () => ({
-      data: initialData,
-    }),
+    staleTime: 1000 * 60 * 1, // 1 minutes
+    initialData: initialData
+      ? () => ({
+          data: initialData,
+        })
+      : undefined,
     retry: false,
   });
 

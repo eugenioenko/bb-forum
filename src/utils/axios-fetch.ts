@@ -1,18 +1,14 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { ApiResponse } from "@/models/api-response";
+import axios, { AxiosResponse } from "axios";
 
-export async function axiosFetch<T>(
-  client: AxiosInstance,
-  url: string
-): Promise<T> {
-  const response = await client.get<any, AxiosResponse<T>>(url);
-  return response.data;
-}
+const client = axios.create({
+  baseURL: process.env.BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-export async function axiosPost<T>(
-  client: AxiosInstance,
-  url: string,
-  data?: any
-): Promise<T> {
-  const response = await client.post<any, AxiosResponse<T>>(url, data);
+export async function axiosFetch<T>(url: string): Promise<ApiResponse<T>> {
+  const response = await client.get<any, AxiosResponse<ApiResponse<T>>>(url);
   return response.data;
 }

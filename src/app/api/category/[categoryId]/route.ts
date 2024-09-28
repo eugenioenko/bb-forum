@@ -6,10 +6,13 @@ export async function GET(
   { params }: { params: { categoryId: string } }
 ) {
   try {
-    const category = await queryCategory(params.categoryId);
-
-    return NextResponse.json({ data: category }, { status: 200 });
+    const skip = Number(request.nextUrl.searchParams.get("skip")) || 0;
+    const category = await queryCategory(params.categoryId, { skip });
+    return NextResponse.json({ data: category, skip }, { status: 200 });
   } catch (err: any) {
-    return NextResponse.json({ data: null, error: err }, { status: 404 });
+    return NextResponse.json(
+      { data: null, error: "Category not found" },
+      { status: 200 }
+    );
   }
 }

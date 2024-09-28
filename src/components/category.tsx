@@ -4,15 +4,26 @@ import { Threads } from "./threads";
 import { Editor } from "./editor";
 import { CategoryModel } from "@/queries/server/category.prisma";
 import { usePrefetchedQuery } from "@/utils/use-prefetched-query";
+import { Pagination } from "./pagination";
+import { useState } from "react";
+import { ApiResponse } from "@/models/api-response";
 
 interface Props {
-  category: CategoryModel;
+  response: ApiResponse<CategoryModel>;
 }
+/*
+export function usePageSkip() {
 
-export const Category = (props: Props) => {
+}
+*/
+export const Category = ({ response }: Props) => {
+  const [skip, setSkip] = useState(response.skip);
+
+  const initialData = response?.skip === skip ? response?.data : undefined;
+
   const { data: category } = usePrefetchedQuery(
-    `/api/category/${props.category.id}`,
-    props.category
+    `/api/category/${response.data.id}?skip=${skip}`,
+    initialData
   );
 
   return (
@@ -31,7 +42,11 @@ export const Category = (props: Props) => {
           <Threads threads={category?.threads || []} />
         </div>
       </div>
-      <Editor categoryId={category.id} />
+      <Pagination
+        total={category?._count.threads}
+        onPageChange={(skip) => setSkip(skip)}
+      />
+      <Editor categoryId={category?.id} />
     </div>
   );
 };

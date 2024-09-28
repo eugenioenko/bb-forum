@@ -13,7 +13,7 @@ label {
   @apply font-normal;
 }
 button {
-  @apply bg-primary text-white rounded px-4 py-2 min-w-28 transition-colors inline-flex items-center justify-center gap-2 font-semibold;
+  @apply bg-primary text-white rounded px-3 py-1.5 transition-colors inline-flex items-center justify-center gap-2 font-semibold;
 }
 
 button:not([disabled]) {
@@ -30,7 +30,16 @@ a {
 
 input,
 textarea {
-  @apply px-4 py-2 border-primary border rounded font-normal;
+  @apply px-3 py-1.5 border-primary border rounded font-normal;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .flex-center {
