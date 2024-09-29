@@ -5,26 +5,20 @@ import { Editor } from "./editor";
 import { CategoryModel } from "@/queries/server/category.prisma";
 import { usePrefetchedQuery } from "@/utils/use-prefetched-query";
 import { Pagination } from "./pagination";
-import { useState } from "react";
 import { ApiResponse } from "@/models/api-response";
+import { usePageSkip } from "@/hooks/use-page-skip";
 
 interface Props {
   response: ApiResponse<CategoryModel>;
 }
-/*
-export function usePageSkip() {
 
-}
-*/
 export const Category = ({ response }: Props) => {
-  const [skip, setSkip] = useState(response.skip);
-
-  const initialData = response?.skip === skip ? response?.data : undefined;
-
-  const { data: category } = usePrefetchedQuery(
+  const { initialData, skip, setSkip } = usePageSkip(response);
+  const { data, isLoading } = usePrefetchedQuery(
     `/api/category/${response.data.id}?skip=${skip}`,
     initialData
   );
+  const category = data?.data;
 
   return (
     <div className="pt-4 flex flex-col gap-4">
@@ -43,8 +37,10 @@ export const Category = ({ response }: Props) => {
         </div>
       </div>
       <Pagination
+        onSkipChange={(skip) => setSkip(skip)}
+        isLoading={isLoading}
         total={category?._count.threads}
-        onPageChange={(skip) => setSkip(skip)}
+        skip={skip}
       />
       <Editor categoryId={category?.id} />
     </div>

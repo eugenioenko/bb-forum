@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
         <AxiosProvider>
           <ReactQueryProvider>
-            <main className="max-w-screen-lg mx-auto p-4 pb-12">
+            <main className="max-w-screen-lg mx-auto p-4 pb-24">
               <Navbar />
               {children}
             </main>

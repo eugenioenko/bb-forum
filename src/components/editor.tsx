@@ -43,6 +43,9 @@ export const Editor = ({ categoryId }: Props) => {
       onSubmit={handleSubmit(doSubmit)}
       className="card flex flex-col gap-4 p-4"
     >
+      <div className="bg-primary font-header -mt-4 -mx-4 px-4 py-2 text-white">
+        Create new thread
+      </div>
       <div>
         <label>Title</label>
         <input className="w-full" {...register("title")} />
@@ -50,7 +53,10 @@ export const Editor = ({ categoryId }: Props) => {
       </div>
       <div>
         <label>Content</label>
-        <textarea className="w-full" {...register("content")}></textarea>
+        <textarea
+          className="w-full min-h-32"
+          {...register("content")}
+        ></textarea>
         {errors.content && (
           <span className="error">{errors.content.message}</span>
         )}

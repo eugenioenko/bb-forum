@@ -4,25 +4,24 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 
-export function usePrefetchedQuery<T>(endpoint: string, initialData: T) {
+export function usePrefetchedQuery<T>(
+  endpoint: string,
+  initialData: ApiResponse<T> | undefined
+) {
   const [dataItem, setDataItem] = useState(initialData);
 
   const { data, isLoading, error } = useQuery<ApiResponse<T>, AxiosError>({
     queryKey: [endpoint],
     queryFn: () => client.get(endpoint).then((res) => res.data),
     refetchOnMount: false,
-    staleTime: 1000 * 60 * 1, // 1 minutes
-    initialData: initialData
-      ? () => ({
-          data: initialData,
-        })
-      : undefined,
+    staleTime: 1000 * 60 * 3, //3 minutes
     retry: false,
+    initialData,
   });
 
   useEffect(() => {
     if (data?.data) {
-      setDataItem(data.data);
+      setDataItem(data);
     }
   }, [data, error]);
 

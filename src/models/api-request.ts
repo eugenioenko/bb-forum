@@ -1,4 +1,4 @@
-export const apiPageSize = 5;
+export const apiPageSize = 15;
 
 export interface ApiQueryArgs {
   take?: number;

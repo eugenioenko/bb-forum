@@ -27,8 +27,7 @@ export const Button = ({
       className={isIcon ? "" : "min-w-28"}
       {...rest}
     >
-      {isLoading && <IconFidgetSpinner className="animate-spin" />}
-      {children}
+      {isLoading ? <IconFidgetSpinner className="animate-spin" /> : children}
     </button>
   );
 };
