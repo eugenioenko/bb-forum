@@ -1,22 +1,25 @@
 "use client";
-import { useSubmitLogin } from "@/hooks/use-submit-login";
-import { LoginSchema, LoginSchemaType } from "@/schemas/login-schema";
+import { useSubmitSignup } from "@/hooks/use-submit-signup";
+import {
+  SignupFormSchema,
+  SignupFormSchemaType,
+} from "@/schemas/signup-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { Button } from "./button";
 import { Logo } from "./logo";
 
-export const Login = () => {
+export const Signup = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginSchemaType>({
-    resolver: zodResolver(LoginSchema),
+  } = useForm<SignupFormSchemaType>({
+    resolver: zodResolver(SignupFormSchema),
   });
 
-  const { serverError, isPending, doSubmit } = useSubmitLogin();
+  const { serverError, isPending, doSubmit } = useSubmitSignup();
 
   return (
     <div className="min-h-dvh flex-center">
@@ -30,10 +33,22 @@ export const Login = () => {
           </div>
         </div>
         <div>
+          <label>Username</label>
+          <input
+            className="w-full"
+            placeholder="username"
+            autoComplete="name"
+            {...register("username")}
+          />
+          {errors.username && (
+            <span className="error">{errors.username.message}</span>
+          )}
+        </div>
+        <div>
           <label>Email</label>
           <input
             className="w-full"
-            placeholder="email address"
+            placeholder="email"
             autoComplete="email"
             {...register("email")}
           />
@@ -46,7 +61,7 @@ export const Login = () => {
           <input
             className="w-full"
             placeholder="password"
-            autoComplete="current-password"
+            autoComplete="new-password"
             type="password"
             {...register("password")}
           />
@@ -54,16 +69,29 @@ export const Login = () => {
             <span className="error">{errors.password.message}</span>
           )}
         </div>
+        <div>
+          <label>Confirm Password</label>
+          <input
+            className="w-full"
+            placeholder="password"
+            type="password"
+            autoComplete="new-password"
+            {...register("confirmPassword")}
+          />
+          {errors.confirmPassword && (
+            <span className="error">{errors.confirmPassword.message}</span>
+          )}
+        </div>
         <div className="pt-2"></div>
         {serverError && <span className="error">{serverError}</span>}
         <Button type="submit" isLoading={isPending}>
-          Login
+          Sign Up
         </Button>
         <div className="text-center">
-          <span className="text-gray-500">Not a member?</span>
+          <span className="text-gray-500">Have an account?</span>
 
-          <Link href="/auth/signup" className="text-primary ml-1 underline">
-            Create account
+          <Link href="/auth/login" className="text-primary ml-1 underline">
+            Login here
           </Link>
         </div>
       </form>

@@ -33,6 +33,10 @@ textarea {
   @apply px-3 py-1.5 border-primary border rounded font-normal;
 }
 
+input:focus-visible {
+  @apply outline-blue-400;
+}
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   display: none;

@@ -1,19 +1,19 @@
 "use client";
-import { useAuthLoginMutation } from "@/queries/client/use-auth-login";
-import { LoginSchemaType } from "@/schemas/login-schema";
+import { useAuthSignupMutation } from "@/queries/client/use-auth-signup";
+import { SignupSchemaType } from "@/schemas/signup-schema";
 import { useAuthStore } from "@/stores/auth";
 import { parseAxiosError } from "@/utils/axios-error";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 
-export const useSubmitLogin = () => {
+export const useSubmitSignup = () => {
   const [serverError, setServerError] = useState("");
-  const mutation = useAuthLoginMutation();
+  const mutation = useAuthSignupMutation();
   const router = useRouter();
   const auth = useAuthStore();
 
-  const doSubmit: SubmitHandler<LoginSchemaType> = (data) => {
+  const doSubmit: SubmitHandler<SignupSchemaType> = (data) => {
     mutation?.mutate(data, {
       onError: (error) => {
         setServerError(parseAxiosError(error));

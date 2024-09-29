@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useAuthLogoutMutation } from "@/queries/client/use-auth-logout";
 import { useAuthStore } from "@/stores/auth";
 import { IconFidgetSpinner } from "@tabler/icons-react";
-import { useAuthLogoutMutation } from "@/queries/client/use-auth-logout";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export const Logout = () => {
   const mutation = useAuthLogoutMutation();
@@ -18,7 +18,7 @@ export const Logout = () => {
     } finally {
       setTimeout(() => {
         router.push("/home");
-      }, 1500);
+      }, 900);
     }
   };
 

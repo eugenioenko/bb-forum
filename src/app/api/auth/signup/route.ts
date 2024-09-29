@@ -1,13 +1,13 @@
-import { LoginSchema } from "@/schemas/login-schema";
-import { loginUserOrThrow } from "@/services/auth.service";
+import { SignupSchema } from "@/schemas/signup-schema";
+import { signupUserOrThrow } from "@/services/auth.service";
 import { validateSchemaOrThrow } from "@/utils/validate-request";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
     const req = await request.json();
-    const credentials = validateSchemaOrThrow(LoginSchema, req);
-    const authUser = await loginUserOrThrow(credentials);
+    const credentials = validateSchemaOrThrow(SignupSchema, req);
+    const authUser = await signupUserOrThrow(credentials);
 
     return NextResponse.json({ data: authUser }, { status: 200 });
   } catch (err: any) {

@@ -1,17 +1,18 @@
-import { HttpException } from "@/models/http-exception";
-import { SignupSchemaType } from "@/schemas/login-schema";
-import { userToAuthUserMapper } from "@/utils/user-to-auth-user-mapper";
-import { compare } from "bcrypt";
-import { cookies } from "next/headers";
-import prisma from "./prisma.client";
 import { AuthUserModel } from "@/models/auth-user";
-import { sign, verify } from "jsonwebtoken";
-import { validateSchemaOrThrow } from "@/utils/validate-request";
+import { HttpException } from "@/models/http-exception";
 import { IdSchema, IdSchemaType } from "@/schemas/id-schema";
+import { LoginSchemaType } from "@/schemas/login-schema";
+import { SignupSchemaType } from "@/schemas/signup-schema";
+import { userToAuthUserMapper } from "@/utils/user-to-auth-user-mapper";
+import { validateSchemaOrThrow } from "@/utils/validate-request";
+import { compare, hash } from "bcrypt";
+import { sign, verify } from "jsonwebtoken";
+import { cookies } from "next/headers";
 import type { NextRequest } from "next/server";
+import prisma from "./prisma.client";
 
 export async function loginUserOrThrow(
-  credentials: SignupSchemaType
+  credentials: LoginSchemaType
 ): Promise<AuthUserModel> {
   const user = await prisma.user.findUnique({
     where: { email: credentials.email },
@@ -24,6 +25,33 @@ export async function loginUserOrThrow(
   if (!isPasswordMatching) {
     throw new HttpException(409, "Email or password does not match");
   }
+
+  const accessToken = createAccessToken(user.id);
+  const refreshToken = createRefreshToken(user.id);
+  const authUser = userToAuthUserMapper(user, accessToken);
+
+  const cookieStore = cookies();
+  cookieStore.set("refreshToken", refreshToken, {
+    httpOnly: true,
+    sameSite: "strict",
+  });
+
+  return authUser;
+}
+
+export async function signupUserOrThrow(
+  credentials: SignupSchemaType
+): Promise<AuthUserModel> {
+  const findUser = await prisma.user.findUnique({
+    where: { email: credentials.email },
+  });
+  if (findUser)
+    throw new HttpException(409, `Email "${credentials.email}" already in use`);
+
+  const hashedPassword = await hash(credentials.password, 10);
+  const user = await prisma.user.create({
+    data: { ...credentials, password: hashedPassword },
+  });
 
   const accessToken = createAccessToken(user.id);
   const refreshToken = createRefreshToken(user.id);
