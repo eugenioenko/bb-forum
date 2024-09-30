@@ -33,27 +33,27 @@ export const Signup = () => {
           </div>
         </div>
         <div>
-          <label>Username</label>
-          <input
-            className="w-full"
-            placeholder="username"
-            autoComplete="name"
-            {...register("username")}
-          />
-          {errors.username && (
-            <span className="error">{errors.username.message}</span>
-          )}
-        </div>
-        <div>
           <label>Email</label>
           <input
             className="w-full"
             placeholder="email"
-            autoComplete="email"
+            autoComplete="username"
             {...register("email")}
           />
           {errors.email && (
             <span className="error">{errors.email.message}</span>
+          )}
+        </div>
+        <div>
+          <label>Username</label>
+          <input
+            className="w-full"
+            placeholder="username"
+            autoComplete="off"
+            {...register("username")}
+          />
+          {errors.username && (
+            <span className="error">{errors.username.message}</span>
           )}
         </div>
         <div>

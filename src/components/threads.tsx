@@ -1,12 +1,14 @@
 import Link from "next/link";
+import { NoResults } from "./no-results";
+import { CategoryModel } from "@/queries/server/category.prisma";
 
 interface Props {
-  threads?: ThreadModel[];
+  threads?: CategoryModel["threads"];
 }
 
 export const Threads = ({ threads }: Props) => {
   if (!threads?.length) {
-    return;
+    return <NoResults />;
   }
   return threads.map((thread) => (
     <div

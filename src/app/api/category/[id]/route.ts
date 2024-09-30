@@ -14,7 +14,10 @@ export async function GET(
     const skip = positiveIntegerOrZero(querySkip);
     const category = await queryCategory(categoryId, { skip });
 
-    return NextResponse.json({ data: category, skip }, { status: 200 });
+    return NextResponse.json(
+      { data: category, args: { skip } },
+      { status: 200 }
+    );
   } catch (err: any) {
     return NextResponse.json(
       { data: null, error: "Category not found" },

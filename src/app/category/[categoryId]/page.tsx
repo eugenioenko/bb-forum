@@ -18,9 +18,7 @@ export default async function CategoryPage({
 
   if (res.error) {
     return <ServerError error={res.error} />;
-  } else if (res.data) {
-    return <Category response={res} />;
-  } else {
-    return <ServerError error="Unexpected Error" />;
   }
+
+  return <Category response={res} />;
 }

@@ -7,6 +7,7 @@ import { usePrefetchedQuery } from "@/utils/use-prefetched-query";
 import { Pagination } from "./pagination";
 import { ApiResponse } from "@/models/api-response";
 import { usePageSkip } from "@/hooks/use-page-skip";
+import { NoResults } from "./no-results";
 
 interface Props {
   response: ApiResponse<CategoryModel>;

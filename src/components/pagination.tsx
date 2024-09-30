@@ -1,6 +1,7 @@
 import { IconCaretLeftFilled, IconCaretRightFilled } from "@tabler/icons-react";
 import { Button } from "./button";
 import { apiPageSize } from "@/models/api-request";
+import { positiveIntegerOrZero } from "@/utils/number-or-zero";
 
 interface Props {
   total?: number;
@@ -12,29 +13,55 @@ interface Props {
 
 export const Pagination = ({
   total = 0,
-  take,
   onSkipChange,
   skip,
   isLoading,
 }: Props) => {
-  const intake = take ? take : apiPageSize;
+  const page = Math.floor(skip / apiPageSize);
+  const totalPages = Math.floor(total / apiPageSize);
 
-  function onNextPage(dir: number) {
-    let url = new URL(window.location.href);
-    const nextSkip = skip + intake * dir;
-    url.searchParams.set("skip", `${nextSkip}`);
-    window.history.pushState(null, "", url);
+  const onNextPage = (dir: number) => {
+    const nextSkip = skip + apiPageSize * dir;
     onSkipChange?.(nextSkip);
-  }
+  };
+
+  const onPageChange = (page: string) => {
+    let pageNumber = positiveIntegerOrZero(page);
+    if (pageNumber > 0) {
+      pageNumber -= 1;
+    }
+    if (pageNumber >= totalPages) {
+      pageNumber = totalPages;
+    }
+    onSkipChange?.(pageNumber * apiPageSize);
+  };
 
   return (
     <div className="flex gap-2 justify-end items-center">
-      <Button isIcon isLoading={isLoading} onClick={() => onNextPage(-1)}>
+      <Button
+        isIcon
+        disabled={page <= 0}
+        isLoading={isLoading}
+        onClick={() => onNextPage(-1)}
+      >
         {!isLoading && <IconCaretLeftFilled />}
       </Button>
-      <input type="number" min="0" step={1} className="w-14 ml-2" />
-      <div className="font-normal">of 23</div>
-      <Button isIcon isLoading={isLoading} onClick={() => onNextPage(1)}>
+      <input
+        type="number"
+        min="0"
+        step={1}
+        className="w-10 ml-2"
+        value={page + 1}
+        onFocus={(e) => e.currentTarget.select()}
+        onInput={(e) => onPageChange(e.currentTarget.value)}
+      />
+      <div className="font-normal">of {totalPages + 1}</div>
+      <Button
+        isIcon
+        disabled={page >= totalPages}
+        isLoading={isLoading}
+        onClick={() => onNextPage(1)}
+      >
         {!isLoading && <IconCaretRightFilled />}
       </Button>
     </div>

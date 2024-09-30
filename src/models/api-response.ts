@@ -1,7 +1,9 @@
+import { ApiQueryArgs } from "./api-request";
+
 export interface ApiResponse<T> {
-  error?: string;
-  skip?: number;
   data: T;
+  error?: string;
+  args?: ApiQueryArgs;
 }
 
 export interface UserModel {

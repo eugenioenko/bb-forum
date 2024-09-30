@@ -33,7 +33,7 @@ export const Login = () => {
           <label>Email</label>
           <input
             className="w-full"
-            placeholder="email address"
+            placeholder="email"
             autoComplete="email"
             {...register("email")}
           />
