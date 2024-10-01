@@ -5,6 +5,8 @@ export const Logo = () => {
     <Link href="/home">
       <svg
         viewBox="0 0 256 256"
+        widths="256"
+        height="256"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
@@ -12,6 +14,7 @@ export const Logo = () => {
         clipRule="evenodd"
         strokeLinejoin="round"
         strokeMiterlimit="2"
+        className="max-w-full h-auto"
       >
         <g transform="matrix(1,0,0,1,3,2)">
           <circle

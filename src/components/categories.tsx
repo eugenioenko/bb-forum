@@ -18,11 +18,13 @@ export const Categories = ({ categories }: Props) => {
         <div>{category.description}</div>
       </div>
       <div className="hidden md:block col-span-2 text-center px-2 ">
-        {category.threads?.length}
+        {category._count.threads}
       </div>
       <div className="hidden md:block col-span-3 px-2">
-        {category.threads?.length && (
-          <LastPost thread={category.threads[0]} showDate={false} />
+        {category._count.threads ? (
+          <LastPost thread={category.threads[0]} />
+        ) : (
+          "No posts yet, be the first!"
         )}
       </div>
     </div>

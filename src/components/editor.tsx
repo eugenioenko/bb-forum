@@ -4,8 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./button";
 import { ThreadSchemaType, ThreadSchema } from "@/schemas/thread-schema";
 import { useCreateThreadMutation } from "@/queries/client/use-create-thread";
-import { randPost } from "@ngneat/falso";
-import { useRef } from "react";
 
 interface Props {
   categoryId?: string;
@@ -20,21 +18,18 @@ export const Editor = ({ categoryId }: Props) => {
     resolver: zodResolver(ThreadSchema),
     defaultValues: {
       categoryId,
-      title: new Date().toJSON(),
-      content: "message",
+      title: "",
+      content: "",
     },
   });
 
   const { mutate, isPending, error } = useCreateThreadMutation();
 
-  const count = useRef(1);
-
   const doSubmit: SubmitHandler<ThreadSchemaType> = async (data) => {
-    const post = randPost();
     mutate({
       categoryId: categoryId || "",
-      content: post.body || data.content,
-      title: `${count.current++} ${post.title}` || data.title,
+      content: data.content,
+      title: data.title,
     });
   };
 

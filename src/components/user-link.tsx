@@ -1,5 +1,9 @@
-import { UserModel } from "@/models/api-response";
 import Link from "next/link";
+
+interface UserModel {
+  id: string;
+  username: string;
+}
 
 interface Props {
   user: UserModel;

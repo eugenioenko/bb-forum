@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { NoResults } from "./no-results";
 import { CategoryModel } from "@/queries/server/category.prisma";
+import { LastPost } from "./last-post";
 
 interface Props {
   threads?: CategoryModel["threads"];
@@ -19,11 +20,16 @@ export const Threads = ({ threads }: Props) => {
         <div className="text-primary">
           <Link href={`/thread/${thread.id}`}>{thread.title}</Link>
         </div>
+        <div className="text-nowrap text-ellipsis overflow-hidden">
+          {thread.posts[0].content}
+        </div>
       </div>
       <div className="hidden md:block col-span-2 text-center px-2 ">
-        {thread.posts?.length}
+        {thread._count.posts}
       </div>
-      <div className="hidden md:block col-span-3 px-2">todo</div>
+      <div className="hidden md:block col-span-3 px-2">
+        <LastPost thread={thread} />
+      </div>
     </div>
   ));
 };

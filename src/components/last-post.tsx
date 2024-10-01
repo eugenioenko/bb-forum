@@ -1,19 +1,32 @@
-import { Thread } from "@prisma/client";
+import { CategoryThreadModel } from "@/queries/server/category.prisma";
+import { UserLink } from "./user-link";
 
 interface Props {
-  thread: Partial<Thread>;
-  showDate?: boolean;
+  thread: CategoryThreadModel;
 }
 
-export const LastPost = ({ thread, showDate }: Props) => {
+export const LastPost = ({ thread }: Props) => {
   if (!thread) {
     return "No posts yet, be the first!";
   }
+
   return (
     <div>
       <div className="text-nowrap text-ellipsis overflow-hidden">
         {thread.title}
       </div>
+      <LastPostUser thread={thread} />
     </div>
   );
+};
+
+const LastPostUser = ({ thread }: Props) => {
+  if (thread.posts.length) {
+    return (
+      <div>
+        by <UserLink user={thread.posts[0].user} />
+      </div>
+    );
+  }
+  return "";
 };

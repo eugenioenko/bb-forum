@@ -14,22 +14,19 @@ export const queryHomePage = async () =>
           threads: {
             take: 1,
             orderBy: {
-              createdAt: "asc",
+              createdAt: "desc",
             },
             include: {
               posts: {
                 take: 1,
                 orderBy: {
-                  createdAt: "asc",
+                  createdAt: "desc",
                 },
                 include: {
                   user: {
                     select: {
                       username: true,
-                      email: true,
                       id: true,
-                      lastLogin: true,
-                      createdAt: true,
                     },
                   },
                 },

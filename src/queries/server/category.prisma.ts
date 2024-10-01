@@ -2,6 +2,7 @@ import { apiPageSize, ApiQueryArgs } from "@/models/api-request";
 import prisma from "@/services/prisma.client";
 
 export type CategoryModel = Awaited<ReturnType<typeof queryCategory>>;
+export type CategoryThreadModel = CategoryModel["threads"][number];
 export const queryCategory = async (categoryId: string, args?: ApiQueryArgs) =>
   await prisma.category.findUniqueOrThrow({
     where: {
@@ -17,7 +18,7 @@ export const queryCategory = async (categoryId: string, args?: ApiQueryArgs) =>
         take: args?.take || apiPageSize,
         skip: args?.skip || 0,
         orderBy: {
-          createdAt: "asc",
+          createdAt: "desc",
         },
         include: {
           _count: {
@@ -28,16 +29,13 @@ export const queryCategory = async (categoryId: string, args?: ApiQueryArgs) =>
           posts: {
             take: 1,
             orderBy: {
-              createdAt: "asc",
+              createdAt: "desc",
             },
             include: {
               user: {
                 select: {
                   username: true,
-                  email: true,
                   id: true,
-                  lastLogin: true,
-                  createdAt: true,
                 },
               },
             },

@@ -142,7 +142,7 @@ async function main() {
       id: "33bb9356-51a6-4bee-8eed-c29bb22260fc",
       name: "Hobbies and Interests",
       description:
-        "Discussions about various hobbies and interests like photography, gaming, and cooking.",
+        "Discussions about hobbies and interests like photography, gaming, and cooking.",
       sectionId: "ca21da54-5794-48b9-b3b0-ca9fb6d8f0e2",
     },
   });
@@ -164,7 +164,7 @@ async function main() {
       id: "0eee1795-a1d2-4627-99db-313b99b9fd76",
       name: "Education and Learning",
       description:
-        "Help and discussions on educational topics like math, language learning, and coding",
+        "Help and discussions on educational topics like math, language, and coding",
       sectionId: "ca21da54-5794-48b9-b3b0-ca9fb6d8f0e2",
     },
   });

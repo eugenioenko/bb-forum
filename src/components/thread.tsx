@@ -1,23 +1,37 @@
 "use client";
 
-interface Props {
-  id: string;
+import { Editor } from "./editor";
+import { ThreadModel } from "@/queries/server/thread.prisma";
+import { usePrefetchedQuery } from "@/utils/use-prefetched-query";
+import { Pagination } from "./pagination";
+import { ApiResponse } from "@/models/api-response";
+import { usePageSkip } from "@/hooks/use-page-skip";
+import { Post } from "./post";
+
+interface ThreadProps {
+  response: ApiResponse<ThreadModel>;
 }
 
-export const Thread = ({ id }: Props) => {
+export const Thread = ({ response }: ThreadProps) => {
+  const { initialData, skip, setSkip } = usePageSkip(response);
+  const { data, isLoading } = usePrefetchedQuery(
+    `/api/thread/${response.data.id}?skip=${skip}`,
+    initialData
+  );
+  const thread = data?.data;
+
   return (
     <div className="pt-4 flex flex-col gap-4">
-      <div className="card">
-        <div className="bg-primary font-header text-inverse">
-          <div className="grid grid-cols-1 md:grid-cols-12 px-2 py-1.5">
-            <div className="col-span-7 px-2">Topics</div>
-            <div className="hidden md:block col-span-2 text-center px-2">
-              Posts
-            </div>
-            <div className="hidden md:block col-span-2 px-2">Last Post</div>
-          </div>
-        </div>
-      </div>
+      {thread?.posts.map((post) => (
+        <Post key={post.id} post={post} title={thread.title} />
+      ))}
+      <Pagination
+        onSkipChange={(skip) => setSkip(skip)}
+        isLoading={isLoading}
+        total={thread?._count.posts}
+        skip={skip}
+      />
+      <Editor />
     </div>
   );
 };
