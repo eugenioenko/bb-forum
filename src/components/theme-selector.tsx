@@ -1,52 +1,24 @@
 import { useAppStore } from "@/stores/app.store";
 
 const themeNames = [
-  "theme-light",
-  "theme-dark",
-  "theme-solarize-light",
-  "theme-solarize-dark",
-  "theme-urban-light",
-  "theme-urban-dark",
-  "theme-jungle-light",
-  "theme-jungle-dark",
-  "theme-forest-light",
-  "theme-forest-dark",
-  "theme-ocean-light",
-  "theme-ocean-dark",
-  "theme-detroit-light",
-  "theme-detroitP-dark",
-  "theme-ny-light",
-  "theme-ny-dark",
-  "theme-canada-light",
-  "theme-canada-dark",
-  "theme-twilight-light",
-  "theme-twilight-dark",
-  "theme-sunset-light",
-  "theme-sunset-dark",
-  "theme-bohemia-dark",
-  "theme-high-contrast-light",
-  "theme-high-contrast-dark",
-
-  "theme-sunset",
-  "theme-ocean-breeze",
-  "theme-midnight-city",
-  "theme-mountain-peak",
-  "theme-forest-mist",
-  "theme-desert-dusk",
-  "theme-urban-jungle",
-  "theme-golden-hour",
-  "theme-winter-chill",
-  "theme-sunrise-glow",
-  "theme-neon-lights",
-  "theme-woodland-trail",
-  "theme-beachfront",
-  "theme-canyon-ridge",
-  "theme-autumn-harvest",
-  "theme-harbor-lights",
-  "theme-moonlit-sky",
-  "theme-rainy-day",
-  "theme-metro-vibes",
-  "theme-summer-breeze",
+  ["theme-light", "Light"],
+  ["theme-dark", "Dark"],
+  ["theme-high-contrast-light", "High Contrast Light"],
+  ["theme-high-contrast-dark", "Hight Contrast Dark"],
+  ["theme-urban-light", "Urban Light"],
+  ["theme-urban-dark", "Urban Dark"],
+  ["theme-rainy-day", "Rainy Day Light"],
+  ["theme-detroit-dark", "Detroit Dark"],
+  ["theme-twilight-light", "Twilight Light"],
+  ["theme-twilight-dark", "Twilight Dark"],
+  ["theme-bohemia-dark", "Bohemia Dark"],
+  ["theme-sunset", "Sunset Light"],
+  ["theme-ocean-breeze", "Ocean Breeze Light"],
+  ["theme-mountain-peak", "Mountain Peak Light"],
+  ["theme-golden-hour", "Golden Hour Dark"],
+  ["theme-woodland-trail", "Woodland Trail Light"],
+  ["theme-harbor-lights", "Harbor Lights Light"],
+  ["theme-moonlit-sky", "Moonlit Sky Light"],
 ];
 export const ThemeSelector = () => {
   const appState = useAppStore();
@@ -61,8 +33,8 @@ export const ThemeSelector = () => {
       onChange={(e) => setTheme(e.currentTarget.value)}
     >
       {themeNames.map((theme) => (
-        <option key={theme} value={theme}>
-          {theme}
+        <option key={theme[0]} value={theme[0]}>
+          {theme[1]}
         </option>
       ))}
     </select>
