@@ -8,7 +8,7 @@ interface Props {
 export const Categories = ({ categories }: Props) => {
   return categories.map((category) => (
     <div
-      className="grid grid-cols-1 md:grid-cols-12 border-b border-gray-300 px-2 py-1.5 items-center"
+      className="grid grid-cols-1 md:grid-cols-12 border-b border-muted px-2 py-1.5 items-center last:border-none"
       key={category.id}
     >
       <div className="col-span-7 px-2">

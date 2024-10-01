@@ -60,7 +60,7 @@ export const Login = () => {
           Login
         </Button>
         <div className="text-center">
-          <span className="text-gray-500">Not a member?</span>
+          <span>Not a member?</span>
 
           <Link href="/auth/signup" className="text-primary ml-1 underline">
             Create account

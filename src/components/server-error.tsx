@@ -13,7 +13,7 @@ export const ServerError: FC<Props> = ({ error }) => {
   }
   return (
     <div className="mt-4">
-      <div className="card p-4 text-red-600 font-normal">{message}</div>
+      <div className="card p-4 text-danger font-normal">{message}</div>
     </div>
   );
 };

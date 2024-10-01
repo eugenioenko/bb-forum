@@ -18,8 +18,16 @@ const config: Config = {
     },
     extend: {
       colors: {
-        primary: "#485277",
-        accent: "#d60b8b",
+        primary: "var(--color-primary)",
+        secondary: "var(--color-secondary)",
+        accent: "var(--color-accent)",
+        danger: "var(--color-danger)",
+        muted: "var(--color-muted)",
+        highlight: "var(--color-highlight)",
+        body: "var(--color-body)",
+        fg: "var(--color-fg)",
+        inverse: "var(--color-inverse)",
+        bg: "var(--color-bg)",
       },
     },
   },

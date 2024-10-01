@@ -5,15 +5,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "../styles/theme.css";
 body {
-  @apply bg-indigo-100 text-[#313131] font-light;
+  @apply bg-body text-fg font-light;
 }
 
 label {
   @apply font-normal;
 }
 button {
-  @apply bg-primary text-white rounded px-3 py-1.5 transition-colors inline-flex items-center justify-center gap-2 font-semibold;
+  @apply bg-primary text-inverse rounded px-3 py-1.5 transition-colors inline-flex items-center justify-center gap-2 font-semibold;
 }
 
 button:not([disabled]) {
@@ -21,7 +22,7 @@ button:not([disabled]) {
 }
 
 button[disabled] {
-  @apply opacity-80 bg-gray-500;
+  @apply opacity-80 bg-muted;
 }
 
 a {
@@ -29,12 +30,15 @@ a {
 }
 
 input,
+select,
 textarea {
-  @apply px-3 py-1.5 border-primary border rounded font-normal;
+  @apply px-3 py-1.5 border-primary border rounded font-normal bg-bg text-fg;
 }
 
-input:focus-visible {
-  @apply outline-blue-400;
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  @apply outline-highlight;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -51,9 +55,9 @@ input[type="number"] {
 }
 
 .card {
-  @apply bg-white rounded-md shadow-md overflow-hidden border border-slate-400;
+  @apply bg-bg rounded-md shadow-none overflow-hidden border border-muted;
 }
 
 .error {
-  @apply text-red-500 text-sm;
+  @apply text-danger text-sm;
 }

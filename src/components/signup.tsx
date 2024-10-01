@@ -88,8 +88,7 @@ export const Signup = () => {
           Sign Up
         </Button>
         <div className="text-center">
-          <span className="text-gray-500">Have an account?</span>
-
+          <span>Have an account?</span>
           <Link href="/auth/login" className="text-primary ml-1 underline">
             Login here
           </Link>

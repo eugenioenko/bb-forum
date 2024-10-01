@@ -43,7 +43,7 @@ export const Editor = ({ categoryId }: Props) => {
       onSubmit={handleSubmit(doSubmit)}
       className="card flex flex-col gap-4 p-4"
     >
-      <div className="bg-primary font-header -mt-4 -mx-4 px-4 py-2 text-white">
+      <div className="bg-secondary font-header -mt-4 -mx-4 px-4 py-2 text-inverse">
         Create new topic
       </div>
       <div>
@@ -61,7 +61,7 @@ export const Editor = ({ categoryId }: Props) => {
           <span className="error">{errors.content.message}</span>
         )}
       </div>
-      {error && <div className="text-red-600 text-center">{error.message}</div>}
+      {error && <div className="error text-center">{error.message}</div>}
       <div className="flex justify-end">
         <Button type="submit" isLoading={isPending}>
           Create

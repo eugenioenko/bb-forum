@@ -10,6 +10,7 @@ import {
   IconUser,
   IconUserPlus,
 } from "@tabler/icons-react";
+import { ThemeSelector } from "./theme-selector";
 
 export const Navbar = () => {
   const path = usePathname();
@@ -59,10 +60,15 @@ export const Navbar = () => {
         </div>
         <div className="flex-grow">
           <div className="text-5xl font-header">Bulletin Board</div>
-          <div className="text-lg font-thin">Forum powered by Next.js</div>
+          <div className="flex">
+            <div className="text-lg font-thin flex-grow">
+              Forum powered by Next.js
+            </div>
+            <ThemeSelector />
+          </div>
         </div>
       </div>
-      <nav className="bg-primary text-white text-sm gap-4 flex px-4 py-1.5 justify-between">
+      <nav className="bg-secondary text-inverse text-sm gap-4 flex px-4 py-1.5 justify-between">
         <div className="flex items-center">
           <Link href="/home" className={path === "/home" ? "underline" : ""}>
             <IconHome />

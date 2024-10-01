@@ -4,6 +4,7 @@ import { Navbar } from "@/components/navbar";
 import { AxiosProvider } from "@/contexts/axios-instance";
 import { ReactQueryProvider } from "@/contexts/react-query.context";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ThemeProvider } from "@/contexts/theme.context";
 
 export const metadata: Metadata = {
   title: "BB Forum",
@@ -16,17 +17,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <AxiosProvider>
-          <ReactQueryProvider>
-            <main className="max-w-screen-lg mx-auto p-4 pb-24">
-              <Navbar />
-              {children}
-            </main>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </ReactQueryProvider>
-        </AxiosProvider>
-      </body>
+      <ThemeProvider>
+        <body>
+          <AxiosProvider>
+            <ReactQueryProvider>
+              <main className="max-w-screen-lg mx-auto p-4 pb-24">
+                <Navbar />
+                {children}
+              </main>
+              <ReactQueryDevtools initialIsOpen={false} />
+            </ReactQueryProvider>
+          </AxiosProvider>
+        </body>
+      </ThemeProvider>
     </html>
   );
 }
