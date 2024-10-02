@@ -1,36 +1,58 @@
 "use client";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "./button";
-import { ThreadSchemaType, ThreadSchema } from "@/schemas/thread-schema";
+import { useCreatePostMutation } from "@/queries/client/use-create-post";
 import { useCreateThreadMutation } from "@/queries/client/use-create-thread";
+import { EditorSchema, EditorSchemaType } from "@/schemas/editor-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Button } from "./button";
+import { randParagraph, randPost } from "@ngneat/falso";
 
 interface Props {
   categoryId?: string;
+  threadId?: string;
 }
 
-export const Editor = ({ categoryId }: Props) => {
+export const Editor = ({ categoryId, threadId }: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ThreadSchemaType>({
-    resolver: zodResolver(ThreadSchema),
+  } = useForm<EditorSchemaType>({
+    resolver: zodResolver(EditorSchema),
     defaultValues: {
       categoryId,
-      title: "",
-      content: "",
+      threadId,
+      content: "asdfasdf",
+      title: "asdfasdfadfs",
     },
   });
 
-  const { mutate, isPending, error } = useCreateThreadMutation();
+  const {
+    mutate: mutateThread,
+    isPending: isPendingThread,
+    error: errorThread,
+  } = useCreateThreadMutation();
 
-  const doSubmit: SubmitHandler<ThreadSchemaType> = async (data) => {
-    mutate({
-      categoryId: categoryId || "",
-      content: data.content,
-      title: data.title,
-    });
+  const {
+    mutate: mutatePost,
+    isPending: isPendingPost,
+    error: errorPost,
+  } = useCreatePostMutation();
+
+  const doSubmit: SubmitHandler<EditorSchemaType> = async (data) => {
+    if (categoryId) {
+      mutateThread({
+        categoryId: categoryId || "",
+        content: randParagraph() || data.content,
+        title: randPost().title || data.title || "",
+      });
+    } else {
+      mutatePost({
+        threadId: threadId || "",
+        title: randPost().title || data.title,
+        content: randParagraph() || data.content,
+      });
+    }
   };
 
   return (
@@ -56,9 +78,14 @@ export const Editor = ({ categoryId }: Props) => {
           <span className="error">{errors.content.message}</span>
         )}
       </div>
-      {error && <div className="error text-center">{error.message}</div>}
+      {errorThread && (
+        <div className="error text-center">{errorThread.message}</div>
+      )}
+      {errorPost && (
+        <div className="error text-center">{errorPost.message}</div>
+      )}
       <div className="flex justify-end">
-        <Button type="submit" isLoading={isPending}>
+        <Button type="submit" isLoading={isPendingThread || isPendingPost}>
           Create
         </Button>
       </div>

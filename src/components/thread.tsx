@@ -23,7 +23,7 @@ export const Thread = ({ response }: ThreadProps) => {
   return (
     <div className="pt-4 flex flex-col gap-4">
       {thread?.posts.map((post) => (
-        <Post key={post.id} post={post} title={thread.title} />
+        <Post key={post.id} post={post} />
       ))}
       <Pagination
         onSkipChange={(skip) => setSkip(skip)}
@@ -31,7 +31,7 @@ export const Thread = ({ response }: ThreadProps) => {
         total={thread?._count.posts}
         skip={skip}
       />
-      <Editor />
+      <Editor threadId={thread?.id} />
     </div>
   );
 };

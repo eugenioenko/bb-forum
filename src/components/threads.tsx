@@ -11,6 +11,7 @@ export const Threads = ({ threads }: Props) => {
   if (!threads?.length) {
     return <NoResults />;
   }
+
   return threads.map((thread) => (
     <div
       className="grid grid-cols-1 md:grid-cols-12 border-b border-muted px-2 py-1.5 items-center last:border-none"
@@ -18,11 +19,9 @@ export const Threads = ({ threads }: Props) => {
     >
       <div className="col-span-7 px-2">
         <div className="text-primary">
-          <Link href={`/thread/${thread.id}`}>{thread.title}</Link>
+          <Link href={`/thread/${thread.id}`}>{thread.posts[0].title}</Link>
         </div>
-        <div className="text-nowrap text-ellipsis overflow-hidden">
-          {thread.posts[0].content}
-        </div>
+        <div className="content-ellipsis">{thread.posts[0].content}</div>
       </div>
       <div className="hidden md:block col-span-2 text-center px-2 ">
         {thread._count.posts}

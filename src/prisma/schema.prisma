@@ -73,7 +73,6 @@ model Category {
 model Thread {
   id         String   @id @default(uuid())
   categoryId String
-  title      String
   userId     String
   user       User     @relation(fields: [userId], references: [id])
   category   Category @relation(fields: [categoryId], references: [id])
@@ -84,6 +83,7 @@ model Thread {
 
 model Post {
   id        String   @id @default(uuid())
+  title     String
   content   String   @db.Text
   userId    String
   threadId  String

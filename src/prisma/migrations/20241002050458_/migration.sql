@@ -67,7 +67,6 @@ CREATE TABLE `Category` (
 CREATE TABLE `Thread` (
     `id` VARCHAR(191) NOT NULL,
     `categoryId` VARCHAR(191) NOT NULL,
-    `title` VARCHAR(191) NOT NULL,
     `userId` VARCHAR(191) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
@@ -78,6 +77,7 @@ CREATE TABLE `Thread` (
 -- CreateTable
 CREATE TABLE `Post` (
     `id` VARCHAR(191) NOT NULL,
+    `title` VARCHAR(191) NOT NULL,
     `content` TEXT NOT NULL,
     `userId` VARCHAR(191) NOT NULL,
     `threadId` VARCHAR(191) NOT NULL,

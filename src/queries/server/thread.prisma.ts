@@ -29,6 +29,7 @@ export const queryThread = async (categoryId: string, args?: ApiQueryArgs) =>
         },
         select: {
           id: true,
+          title: true,
           content: true,
           createdAt: true,
           user: {

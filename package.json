@@ -9,6 +9,7 @@
     "db": "docker-compose up -d",
     "lint": "next lint",
     "prisma:init": "prisma init",
+    "prisma:config": "export DATABASE_URL = mysql://root:password@localhost:3306/bb",
     "prisma:migrate": "prisma migrate dev --preview-feature",
     "prisma:generate": "prisma generate",
     "prisma:seed": "prisma db seed",

@@ -12,9 +12,7 @@ export const LastPost = ({ thread }: Props) => {
 
   return (
     <div>
-      <div className="text-nowrap text-ellipsis overflow-hidden">
-        {thread.title}
-      </div>
+      <div className="content-ellipsis">{thread.posts[0].title}</div>
       <LastPostUser thread={thread} />
     </div>
   );
