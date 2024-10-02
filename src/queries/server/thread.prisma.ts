@@ -25,7 +25,7 @@ export const queryThread = async (categoryId: string, args?: ApiQueryArgs) =>
         take: args?.take || apiPageSize,
         skip: args?.skip || 0,
         orderBy: {
-          createdAt: "desc",
+          createdAt: "asc",
         },
         select: {
           id: true,

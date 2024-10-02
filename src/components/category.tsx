@@ -7,12 +7,14 @@ import { usePrefetchedQuery } from "@/utils/use-prefetched-query";
 import { Pagination } from "./pagination";
 import { ApiResponse } from "@/models/api-response";
 import { usePageSkip } from "@/hooks/use-page-skip";
+import { useCurrentCategory } from "@/hooks/use-current-category";
 
 interface Props {
   response: ApiResponse<CategoryModel>;
 }
 
 export const Category = ({ response }: Props) => {
+  useCurrentCategory(undefined);
   const { initialData, skip, setSkip } = usePageSkip(response);
   const { data, isLoading } = usePrefetchedQuery(
     `/api/category/${response.data.id}?skip=${skip}`,

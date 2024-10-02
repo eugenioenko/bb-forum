@@ -7,6 +7,7 @@ import { Pagination } from "./pagination";
 import { ApiResponse } from "@/models/api-response";
 import { usePageSkip } from "@/hooks/use-page-skip";
 import { Post } from "./post";
+import { useCurrentCategory } from "@/hooks/use-current-category";
 
 interface ThreadProps {
   response: ApiResponse<ThreadModel>;
@@ -19,6 +20,7 @@ export const Thread = ({ response }: ThreadProps) => {
     initialData
   );
   const thread = data?.data;
+  useCurrentCategory(thread?.category);
 
   return (
     <div className="pt-4 flex flex-col gap-4">

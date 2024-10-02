@@ -1,20 +1,24 @@
 "use client";
+import { useAppStore } from "@/stores/app.store";
 import { useAuthStore } from "@/stores/auth";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ReactElement } from "react";
-import { Logo } from "./logo";
 import {
+  IconChevronRight,
   IconHome,
   IconLogout,
   IconUser,
   IconUserPlus,
 } from "@tabler/icons-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ReactElement } from "react";
+import { Logo } from "./logo";
 import { ThemeSelector } from "./theme-selector";
 
 export const Navbar = () => {
   const path = usePathname();
   const auth = useAuthStore();
+
+  const currentCategory = useAppStore().currentCategory;
 
   function signupOrLogin(): ReactElement {
     if (auth.isLoggedIn) {
@@ -74,6 +78,12 @@ export const Navbar = () => {
             <IconHome />
             Home
           </Link>
+          {currentCategory && <IconChevronRight />}
+          {currentCategory && (
+            <Link href={`/category/${currentCategory.id}`}>
+              {currentCategory.name}
+            </Link>
+          )}
         </div>
         <div className="flex items-center gap-4">{signupOrLogin()}</div>
       </nav>

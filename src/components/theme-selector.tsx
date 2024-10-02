@@ -8,6 +8,7 @@ const themeNames = [
   ["theme-urban-light", "Urban Light"],
   ["theme-urban-dark", "Urban Dark"],
   ["theme-rainy-day", "Rainy Day Light"],
+  ["theme-woodland-trail", "Woodland Trail Light"],
   ["theme-detroit-dark", "Detroit Dark"],
   ["theme-twilight-light", "Twilight Light"],
   ["theme-twilight-dark", "Twilight Dark"],
@@ -16,7 +17,6 @@ const themeNames = [
   ["theme-ocean-breeze", "Ocean Breeze Light"],
   ["theme-mountain-peak", "Mountain Peak Light"],
   ["theme-golden-hour", "Golden Hour Dark"],
-  ["theme-woodland-trail", "Woodland Trail Light"],
   ["theme-harbor-lights", "Harbor Lights Light"],
   ["theme-moonlit-sky", "Moonlit Sky Light"],
 ];

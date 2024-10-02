@@ -2,11 +2,13 @@
 
 import { HomePageModel } from "@/queries/server/home.prisma";
 import { Categories } from "./categories";
+import { useCurrentCategory } from "@/hooks/use-current-category";
 
 interface Props {
   sections: HomePageModel;
 }
 export const Home = ({ sections }: Props) => {
+  useCurrentCategory(undefined);
   return (
     <div className="pt-4 flex flex-col gap-4">
       {sections.map((section) => (
