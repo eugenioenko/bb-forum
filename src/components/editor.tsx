@@ -3,16 +3,21 @@ import { useCreatePostMutation } from "@/queries/client/use-create-post";
 import { useCreateThreadMutation } from "@/queries/client/use-create-thread";
 import { EditorSchema, EditorSchemaType } from "@/schemas/editor-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { randParagraph, randPost } from "@ngneat/falso";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "./button";
-import { randParagraph, randPost } from "@ngneat/falso";
+import { useRouter } from "next/navigation";
 
 interface Props {
   categoryId?: string;
   threadId?: string;
+  threadTitle?: string;
 }
 
-export const Editor = ({ categoryId, threadId }: Props) => {
+export const Editor = ({ categoryId, threadId, threadTitle }: Props) => {
+  const router = useRouter();
+  const editorTitle = categoryId ? "Create new topic" : "Reply to topic";
+
   const {
     register,
     handleSubmit,
@@ -22,8 +27,8 @@ export const Editor = ({ categoryId, threadId }: Props) => {
     defaultValues: {
       categoryId,
       threadId,
-      content: "asdfasdf",
-      title: "asdfasdfadfs",
+      content: " ",
+      title: threadTitle || " ",
     },
   });
 
@@ -34,23 +39,30 @@ export const Editor = ({ categoryId, threadId }: Props) => {
   } = useCreateThreadMutation();
 
   const {
-    mutate: mutatePost,
+    mutateAsync: mutatePost,
     isPending: isPendingPost,
     error: errorPost,
   } = useCreatePostMutation();
 
   const doSubmit: SubmitHandler<EditorSchemaType> = async (data) => {
     if (categoryId) {
-      mutateThread({
-        categoryId: categoryId || "",
-        content: randParagraph() || data.content,
-        title: randPost().title || data.title || "",
-      });
+      mutateThread(
+        {
+          categoryId: categoryId || "",
+          content: randParagraph() || data.content,
+          title: randPost().title || data.title || "",
+        },
+        {
+          onSuccess(data) {
+            router.push(`/thread/${data.data.threadId}`);
+          },
+        }
+      );
     } else {
-      mutatePost({
+      await mutatePost({
         threadId: threadId || "",
-        title: randPost().title || data.title,
-        content: randParagraph() || data.content,
+        title: data.title,
+        content: data.content,
       });
     }
   };
@@ -61,7 +73,7 @@ export const Editor = ({ categoryId, threadId }: Props) => {
       className="card flex flex-col gap-4 p-4"
     >
       <div className="bg-secondary font-header -mt-4 -mx-4 px-4 py-2 text-inverse">
-        Create new topic
+        {editorTitle}
       </div>
       <div>
         <label>Title</label>
@@ -86,7 +98,7 @@ export const Editor = ({ categoryId, threadId }: Props) => {
       )}
       <div className="flex justify-end">
         <Button type="submit" isLoading={isPendingThread || isPendingPost}>
-          Create
+          Post
         </Button>
       </div>
     </form>

@@ -4,10 +4,11 @@ import { client } from "@/services/axios.client";
 import { handleAxiosError } from "@/utils/axios-error";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { Post } from "@prisma/client";
 
 export const useCreateThreadMutation = () =>
   useMutation<
-    ApiResponse<any>,
+    ApiResponse<Post>,
     AxiosError<ApiResponse<never>>,
     ThreadSchemaType
   >({

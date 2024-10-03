@@ -65,3 +65,19 @@ input[type="number"] {
 .content-ellipsis {
   @apply text-nowrap text-ellipsis overflow-hidden;
 }
+
+p {
+  margin-bottom: 0.5rem;
+}
+
+.paragraph > h1 {
+  @apply text-3xl pt-6 pb-2;
+}
+
+.paragraph > h2 {
+  @apply text-2xl pt-6 pb-2;
+}
+
+.paragraph > ul {
+  @apply list-disc pl-6;
+}

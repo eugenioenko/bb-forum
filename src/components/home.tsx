@@ -3,6 +3,7 @@
 import { HomePageModel } from "@/queries/server/home.prisma";
 import { Categories } from "./categories";
 import { useCurrentCategory } from "@/hooks/use-current-category";
+import { Statistics } from "./statistics";
 
 interface Props {
   sections: HomePageModel;
@@ -27,6 +28,7 @@ export const Home = ({ sections }: Props) => {
           </div>
         </div>
       ))}
+      <Statistics />
     </div>
   );
 };

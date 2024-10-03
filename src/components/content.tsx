@@ -3,5 +3,12 @@ interface PostProps {
 }
 
 export const Content = ({ content }: PostProps) => {
-  return <div className="max-w-[75ch]">{content}</div>;
+  const paragraphs = (content || "").split("\n");
+  return (
+    <div className="post max-w-[75ch]">
+      {paragraphs.map((paragraph, index) => (
+        <p key={index}>{paragraph}</p>
+      ))}
+    </div>
+  );
 };
