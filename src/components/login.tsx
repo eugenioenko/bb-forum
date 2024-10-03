@@ -19,7 +19,7 @@ export const Login = () => {
   const { serverError, isPending, doSubmit } = useSubmitLogin();
 
   return (
-    <div className="min-h-dvh flex-center">
+    <div className="flex-grow flex-center">
       <form
         onSubmit={handleSubmit(doSubmit)}
         className="card flex flex-col gap-4 p-4 w-80"

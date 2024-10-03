@@ -1,7 +1,7 @@
+import { bbfAdminEmail, bbfName } from "@/environment";
+
 export default async function PrivacyPage() {
   const effectiveDate = "11/11/2024";
-  const forumName = "BB Forum";
-  const email = "eugenioenko@gmail.com";
 
   return (
     <div className="card mt-4">
@@ -14,7 +14,7 @@ export default async function PrivacyPage() {
 
         <h2>1. Introduction</h2>
         <p>
-          Welcome to {forumName}! Your privacy is important to us. This Privacy
+          Welcome to {bbfName}! Your privacy is important to us. This Privacy
           Policy explains how we collect, use, and protect your personal
           information when you use our bulletin board forum (the “Service”).
         </p>
@@ -114,7 +114,7 @@ export default async function PrivacyPage() {
         <h2>9. Contact Us</h2>
         <p>
           If you have any questions about this Privacy Policy, please contact us
-          at {email}.
+          at {bbfAdminEmail}.
         </p>
       </div>
     </div>

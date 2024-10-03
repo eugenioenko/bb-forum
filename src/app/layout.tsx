@@ -22,9 +22,9 @@ export default function RootLayout({
         <body>
           <AxiosProvider>
             <ReactQueryProvider>
-              <main className="max-w-screen-lg mx-auto p-4 pb-24">
+              <main className="max-w-screen-lg min-h-dvh mx-auto p-4 flex flex-col">
                 <Navbar />
-                {children}
+                <div className="flex flex-col flex-grow">{children}</div>
                 <Footer />
               </main>
               <ReactQueryDevtools initialIsOpen={false} />
