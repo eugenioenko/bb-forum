@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { useAuthStore } from "@/stores/auth";
+import { useAuthStore } from "@/stores/auth.store";
 import { AuthUserModel } from "@/models/auth-user";
 import { ApiResponse } from "@/models/api-response";
 

@@ -1,4 +1,4 @@
-import { useAppStore } from "@/stores/app.store";
+import { useConfigStore } from "@/stores/config.store";
 
 const themeNames = [
   ["theme-light", "Light"],
@@ -21,15 +21,15 @@ const themeNames = [
   ["theme-moonlit-sky", "Moonlit Sky Light"],
 ];
 export const ThemeSelector = () => {
-  const appState = useAppStore();
+  const configState = useConfigStore();
 
   const setTheme = (theme: string) => {
     document.body.className = theme;
-    appState.setTheme(theme);
+    configState.setTheme(theme);
   };
   return (
     <select
-      value={appState.theme || ""}
+      value={configState.theme || ""}
       onChange={(e) => setTheme(e.currentTarget.value)}
     >
       {themeNames.map((theme) => (

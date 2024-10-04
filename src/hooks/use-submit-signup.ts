@@ -1,7 +1,7 @@
 "use client";
 import { useAuthSignupMutation } from "@/queries/client/use-auth-signup";
 import { SignupSchemaType } from "@/schemas/signup-schema";
-import { useAuthStore } from "@/stores/auth";
+import { useAuthStore } from "@/stores/auth.store";
 import { parseAxiosError } from "@/utils/axios-error";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

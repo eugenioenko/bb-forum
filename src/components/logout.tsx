@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthLogoutMutation } from "@/queries/client/use-auth-logout";
-import { useAuthStore } from "@/stores/auth";
+import { useAuthStore } from "@/stores/auth.store";
 import { IconFidgetSpinner } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";

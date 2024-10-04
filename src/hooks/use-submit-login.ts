@@ -1,7 +1,7 @@
 "use client";
 import { useAuthLoginMutation } from "@/queries/client/use-auth-login";
 import { LoginSchemaType } from "@/schemas/login-schema";
-import { useAuthStore } from "@/stores/auth";
+import { useAuthStore } from "@/stores/auth.store";
 import { parseAxiosError } from "@/utils/axios-error";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

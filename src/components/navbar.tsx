@@ -1,6 +1,6 @@
 "use client";
 import { useAppStore } from "@/stores/app.store";
-import { useAuthStore } from "@/stores/auth";
+import { useAuthStore } from "@/stores/auth.store";
 import {
   IconChevronRight,
   IconHome,
@@ -58,29 +58,34 @@ export const Navbar = () => {
 
   return (
     <div className="card bg-white flex flex-col">
-      <div className="flex items-center gap-4 p-6">
+      <div className="flex flex-col md:flex-row items-center gap-4 p-6">
         <div className="w-32">
           <Logo />
         </div>
         <div className="flex-grow">
           <div className="text-5xl font-header">Bulletin Board</div>
           <div className="flex">
-            <div className="text-lg font-thin flex-grow">
+            <div className="text-lg font-thin flex-grow text-center md:text-left">
               Forum powered by Next.js
             </div>
-            <ThemeSelector />
           </div>
         </div>
+        <div>
+          <ThemeSelector />
+        </div>
       </div>
-      <nav className="bg-secondary text-inverse text-sm gap-4 flex px-4 py-1.5 justify-between">
+      <nav className="bg-secondary text-inverse text-sm gap-2 flex px-4 py-1.5 justify-between">
         <div className="flex items-center">
           <Link href="/home" className={path === "/home" ? "underline" : ""}>
             <IconHome />
             Home
           </Link>
-          {currentCategory && <IconChevronRight />}
+          {currentCategory && <IconChevronRight className="hidden sm:block" />}
           {currentCategory && (
-            <Link href={`/category/${currentCategory.id}`}>
+            <Link
+              href={`/category/${currentCategory.id}`}
+              className="hidden sm:block"
+            >
               {currentCategory.name}
             </Link>
           )}
