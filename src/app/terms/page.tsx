@@ -14,17 +14,17 @@ export default async function TermsPage() {
 
         <h2>1. Acceptance of Terms</h2>
         <p>
-          By accessing and using {bbfName} (the "Service"), you agree to comply
-          with and be bound by these Terms of Service. If you do not agree to
-          these terms, you should not use the Service.
+          By accessing and using {bbfName} (the &quot;Service&quot;), you agree
+          to comply with and be bound by these Terms of Service. If you do not
+          agree to these terms, you should not use the Service.
         </p>
 
         <h2>2. Changes to Terms</h2>
         <p>
           We reserve the right to modify these Terms of Service at any time. Any
-          changes will be posted on this page with the updated "Effective Date."
-          Continued use of the Service after any such changes shall constitute
-          your consent to those changes.
+          changes will be posted on this page with the updated &quot;Effective
+          Date.&quot; Continued use of the Service after any such changes shall
+          constitute your consent to those changes.
         </p>
 
         <h2>3. User Conduct</h2>
@@ -90,9 +90,9 @@ export default async function TermsPage() {
 
         <h2>8. Disclaimer</h2>
         <p>
-          The Service is provided on an "as is" and "as available" basis. We
-          make no warranties, express or implied, regarding the reliability,
-          accuracy, or availability of the Service.
+          The Service is provided on an &quot;as is&quot; and &quot;as
+          available&quot; basis. We make no warranties, express or implied,
+          regarding the reliability, accuracy, or availability of the Service.
         </p>
 
         <h2>10. Contact Us</h2>

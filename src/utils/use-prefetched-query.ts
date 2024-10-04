@@ -13,7 +13,7 @@ export function usePrefetchedQuery<T>(
   const { data, isLoading, error } = useQuery<ApiResponse<T>, AxiosError>({
     queryKey: [endpoint],
     queryFn: () => client.get(endpoint).then((res) => res.data),
-    refetchOnMount: false,
+    refetchOnMount: true,
     staleTime: 1000 * 60 * 3, //3 minutes
     retry: false,
     initialData,

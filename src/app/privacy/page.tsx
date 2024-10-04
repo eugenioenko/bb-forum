@@ -108,7 +108,7 @@ export default async function PrivacyPage() {
         <p>
           We may update this Privacy Policy from time to time. We will notify
           you of any significant changes by posting the new Privacy Policy on
-          this page with an updated "Effective Date."
+          this page with an updated &quot;Effective Date.&quot;
         </p>
 
         <h2>9. Contact Us</h2>

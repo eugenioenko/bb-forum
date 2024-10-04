@@ -1,5 +1,4 @@
 import { PostSchema } from "@/schemas/post-schema";
-import { ThreadSchema } from "@/schemas/thread-schema";
 import { authUserOrThrow } from "@/services/auth.service";
 import prisma from "@/services/prisma.client";
 import { validateSchemaOrThrow } from "@/utils/validate-request";

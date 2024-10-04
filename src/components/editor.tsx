@@ -1,12 +1,9 @@
 "use client";
-import { useCreatePostMutation } from "@/queries/client/use-create-post";
-import { useCreateThreadMutation } from "@/queries/client/use-create-thread";
 import { EditorSchema, EditorSchemaType } from "@/schemas/editor-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { randParagraph, randPost } from "@ngneat/falso";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Button } from "./button";
-import { useRouter } from "next/navigation";
+import { useSubmitEditor } from "@/hooks/use-submit-editor";
 
 interface Props {
   categoryId?: string;
@@ -15,8 +12,8 @@ interface Props {
 }
 
 export const Editor = ({ categoryId, threadId, threadTitle }: Props) => {
-  const router = useRouter();
   const editorTitle = categoryId ? "Create new topic" : "Reply to topic";
+  const { doSubmit, serverError, isPending } = useSubmitEditor();
 
   const {
     register,
@@ -31,41 +28,6 @@ export const Editor = ({ categoryId, threadId, threadTitle }: Props) => {
       title: threadTitle || " ",
     },
   });
-
-  const {
-    mutate: mutateThread,
-    isPending: isPendingThread,
-    error: errorThread,
-  } = useCreateThreadMutation();
-
-  const {
-    mutateAsync: mutatePost,
-    isPending: isPendingPost,
-    error: errorPost,
-  } = useCreatePostMutation();
-
-  const doSubmit: SubmitHandler<EditorSchemaType> = async (data) => {
-    if (categoryId) {
-      mutateThread(
-        {
-          categoryId: categoryId || "",
-          content: randParagraph() || data.content,
-          title: randPost().title || data.title || "",
-        },
-        {
-          onSuccess(data) {
-            router.push(`/thread/${data.data.threadId}`);
-          },
-        }
-      );
-    } else {
-      await mutatePost({
-        threadId: threadId || "",
-        title: data.title,
-        content: data.content,
-      });
-    }
-  };
 
   return (
     <form
@@ -90,14 +52,9 @@ export const Editor = ({ categoryId, threadId, threadTitle }: Props) => {
           <span className="error">{errors.content.message}</span>
         )}
       </div>
-      {errorThread && (
-        <div className="error text-center">{errorThread.message}</div>
-      )}
-      {errorPost && (
-        <div className="error text-center">{errorPost.message}</div>
-      )}
+      {serverError && <div className="error text-center">{serverError}</div>}
       <div className="flex justify-end">
-        <Button type="submit" isLoading={isPendingThread || isPendingPost}>
+        <Button type="submit" isLoading={isPending}>
           Post
         </Button>
       </div>
