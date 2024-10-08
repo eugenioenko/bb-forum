@@ -1,13 +1,13 @@
 import { useCreatePostMutation } from "@/queries/client/use-create-post";
 import { useCreateThreadMutation } from "@/queries/client/use-create-thread";
 import { EditorSchemaType } from "@/schemas/editor-schema";
-import { randParagraph, randPost } from "@ngneat/falso";
-import { useRouter } from "next/navigation";
-import { SubmitHandler } from "react-hook-form";
 import { useAppStore } from "@/stores/app.store";
 import { parseAxiosError } from "@/utils/axios-error";
+import { randParagraph, randPost } from "@ngneat/falso";
 import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { SubmitHandler } from "react-hook-form";
 
 export const useSubmitEditor = (isRecovery?: boolean) => {
   const app = useAppStore();
@@ -27,6 +27,8 @@ export const useSubmitEditor = (isRecovery?: boolean) => {
     app.setPendingPost(data);
     router.push("/auth/login");
   };
+
+  let doSubmitSuccess: (() => void) | undefined = undefined;
 
   const doSubmit: SubmitHandler<EditorSchemaType> = async (data) => {
     if (data.categoryId) {
@@ -57,6 +59,7 @@ export const useSubmitEditor = (isRecovery?: boolean) => {
             if (isRecovery) {
               router.push(`/thread/${data.threadId}`);
             }
+            doSubmitSuccess?.();
           },
           onError: (error) => handleError(data, error),
         }
@@ -64,5 +67,14 @@ export const useSubmitEditor = (isRecovery?: boolean) => {
     }
   };
 
-  return { serverError, doSubmit, isPending: isPendingPost || isPendingThread };
+  const onSubmitSuccess = (doSuccess: () => void) => {
+    doSubmitSuccess = doSuccess;
+  };
+
+  return {
+    serverError,
+    doSubmit,
+    onSubmitSuccess,
+    isPending: isPendingPost || isPendingThread,
+  };
 };

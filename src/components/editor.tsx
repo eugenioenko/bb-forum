@@ -13,22 +13,27 @@ interface Props {
 
 export const Editor = ({ categoryId, threadId, threadTitle }: Props) => {
   const editorTitle = categoryId ? "Create new topic" : "Reply to topic";
-  const { doSubmit, serverError, isPending } = useSubmitEditor();
 
+  const { doSubmit, serverError, isPending, onSubmitSuccess } =
+    useSubmitEditor();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<EditorSchemaType>({
     resolver: zodResolver(EditorSchema),
     defaultValues: {
       categoryId,
       threadId,
-      content: " ",
+      content: "",
       title: threadTitle || " ",
     },
   });
 
+  onSubmitSuccess(() => {
+    setValue("content", "");
+  });
   return (
     <form
       onSubmit={handleSubmit(doSubmit)}
