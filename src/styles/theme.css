@@ -159,7 +159,7 @@
 .theme-high-contrast-dark {
   --color-primary: #eeeeee;
   --color-secondary: #eeeeee;
-  --color-accent: #ff00ff;
+  --color-accent: #9e62d6;
   --color-danger: #ff0000;
   --color-muted: #bbbbbb;
   --color-highlight: #0000ff;
@@ -234,30 +234,17 @@
   --color-inverse: #f5e8d0;
 }
 
-.theme-harbor-lights {
-  --color-primary: #003366;
-  --color-secondary: #004080;
-  --color-accent: #66ccff;
-  --color-danger: #cc3300;
-  --color-muted: #99cccc;
-  --color-highlight: #3399ff;
-  --color-body: #e5f6ff;
-  --color-fg: #002244;
-  --color-bg: #dcefff;
-  --color-inverse: #dcefff;
-}
-
 .theme-moonlit-sky {
-  --color-primary: #1c1c3c;
-  --color-secondary: #2c2c6c;
+  --color-primary: #181846;
+  --color-secondary: #293367;
   --color-accent: #6495ed;
   --color-danger: #e60000;
-  --color-muted: #b0c4de;
+  --color-muted: #8d9cb1;
   --color-highlight: #4169e1;
   --color-body: #f0f8ff;
   --color-fg: #0d1b1e;
-  --color-bg: #e0f7fa;
-  --color-inverse: #e0f7fa;
+  --color-bg: #e0f5fa;
+  --color-inverse: #ffffff;
 }
 
 .theme-rainy-day {

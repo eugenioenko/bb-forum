@@ -18,7 +18,7 @@ export const Pagination = ({
   isLoading,
 }: Props) => {
   const page = Math.floor(skip / apiPageSize);
-  const totalPages = Math.floor(total / apiPageSize);
+  const totalPages = Math.floor((total - 1) / apiPageSize);
 
   const onNextPage = (dir: number) => {
     const nextSkip = skip + apiPageSize * dir;

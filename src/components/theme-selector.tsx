@@ -17,7 +17,6 @@ const themeNames = [
   ["theme-ocean-breeze", "Ocean Breeze Light"],
   ["theme-mountain-peak", "Mountain Peak Light"],
   ["theme-golden-hour", "Golden Hour Dark"],
-  ["theme-harbor-lights", "Harbor Lights Light"],
   ["theme-moonlit-sky", "Moonlit Sky Light"],
 ];
 export const ThemeSelector = () => {
