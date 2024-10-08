@@ -26,4 +26,4 @@ pnpm prisma:generate
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:4200) with your browser to see the result.
+Open [http://localhost:4200](http://localhost:4200) with your browser to see the result.
