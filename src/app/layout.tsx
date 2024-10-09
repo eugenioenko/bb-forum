@@ -6,6 +6,7 @@ import { ReactQueryProvider } from "@/contexts/react-query.context";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "@/contexts/theme.context";
 import { Footer } from "@/components/footer";
+import { Toasts } from "@/components/toasts";
 
 export const metadata: Metadata = {
   title: "BB Forum",
@@ -22,6 +23,7 @@ export default function RootLayout({
         <body>
           <AxiosProvider>
             <ReactQueryProvider>
+              <Toasts />
               <main className="max-w-screen-lg min-h-dvh mx-auto p-4 flex flex-col">
                 <Navbar />
                 <div className="flex flex-col flex-grow">{children}</div>

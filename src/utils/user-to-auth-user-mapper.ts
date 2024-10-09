@@ -7,5 +7,6 @@ export const userToAuthUserMapper = (
 ): AuthUserModel => ({
   id: user.id,
   email: user.email,
+  username: user.username,
   token: token,
 });

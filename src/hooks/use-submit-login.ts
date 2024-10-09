@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useSubmitEditor } from "./use-submit-editor";
+import { useToastStore } from "@/stores/toast.store";
 
 export const useSubmitLogin = () => {
   const [serverError, setServerError] = useState("");
@@ -15,6 +16,7 @@ export const useSubmitLogin = () => {
   const router = useRouter();
   const auth = useAuthStore();
   const appState = useAppStore();
+  const toast = useToastStore();
   const { doSubmit: doSubmitEditor, isPending } = useSubmitEditor(true);
 
   const handlePendingEditorOrHome = () => {
@@ -32,6 +34,7 @@ export const useSubmitLogin = () => {
       },
       onSuccess: (data) => {
         auth.setAuthUser(data.data);
+        toast.addToast(`Welcome back ${data.data.username}!`);
         handlePendingEditorOrHome();
       },
     });

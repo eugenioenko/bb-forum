@@ -2,6 +2,7 @@ import { useCreatePostMutation } from "@/queries/client/use-create-post";
 import { useCreateThreadMutation } from "@/queries/client/use-create-thread";
 import { EditorSchemaType } from "@/schemas/editor-schema";
 import { useAppStore } from "@/stores/app.store";
+import { useToastStore } from "@/stores/toast.store";
 import { parseAxiosError } from "@/utils/axios-error";
 import { randParagraph, randPost } from "@ngneat/falso";
 import { AxiosError } from "axios";
@@ -10,7 +11,8 @@ import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 
 export const useSubmitEditor = (isRecovery?: boolean) => {
-  const app = useAppStore();
+  const appState = useAppStore();
+  const toast = useToastStore();
   const router = useRouter();
   const [serverError, setServerError] = useState("");
 
@@ -24,7 +26,7 @@ export const useSubmitEditor = (isRecovery?: boolean) => {
       setServerError(parseAxiosError(error));
       return;
     }
-    app.setPendingPost(data);
+    appState.setPendingPost(data);
     router.push("/auth/login");
   };
 
@@ -40,7 +42,8 @@ export const useSubmitEditor = (isRecovery?: boolean) => {
         },
         {
           onSuccess(data) {
-            app.setPendingPost(null);
+            appState.setPendingPost(null);
+            toast.addToast("Topic published successfully");
             router.push(`/thread/${data.data.threadId}`);
           },
           onError: (error) => handleError(data, error),
@@ -55,7 +58,8 @@ export const useSubmitEditor = (isRecovery?: boolean) => {
         },
         {
           onSuccess: () => {
-            app.setPendingPost(null);
+            appState.setPendingPost(null);
+            toast.addToast("Post published successfully");
             if (isRecovery) {
               router.push(`/thread/${data.threadId}`);
             }
