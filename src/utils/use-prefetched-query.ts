@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 export function usePrefetchedQuery<T>(
   endpoint: string,
-  initialData: ApiResponse<T> | undefined
+  initialData?: ApiResponse<T>
 ) {
   const [dataItem, setDataItem] = useState(initialData);
 

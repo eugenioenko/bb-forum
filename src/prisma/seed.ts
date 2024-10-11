@@ -87,17 +87,6 @@ async function main() {
       sectionId: "126d27a7-4efd-439d-881d-f3ec4379fbe6",
     },
   });
-  await prisma.category.upsert({
-    where: { id: "c9128d75-35f6-47ae-b08a-140cb3de9a2b" },
-    update: {},
-    create: {
-      id: "c9128d75-35f6-47ae-b08a-140cb3de9a2b",
-      name: "Community Announcements",
-      description:
-        "Important announcements related to the community, events, and activities.",
-      sectionId: "126d27a7-4efd-439d-881d-f3ec4379fbe6",
-    },
-  });
   await prisma.section.upsert({
     where: { id: "8aa0f927-af46-4474-b3cf-a39f1a658e2f" },
     update: {},
