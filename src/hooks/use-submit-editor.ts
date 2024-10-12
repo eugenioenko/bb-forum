@@ -4,7 +4,6 @@ import { EditorSchemaType } from "@/schemas/editor-schema";
 import { useAppStore } from "@/stores/app.store";
 import { useToastStore } from "@/stores/toast.store";
 import { parseAxiosError } from "@/utils/axios-error";
-import { randParagraph, randPost } from "@ngneat/falso";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -37,8 +36,8 @@ export const useSubmitEditor = (isRecovery?: boolean) => {
       mutateThread(
         {
           categoryId: data.categoryId || "",
-          content: randParagraph() || data.content,
-          title: randPost().title || data.title || "",
+          content: data.content,
+          title: data.title || "",
         },
         {
           onSuccess(data) {
