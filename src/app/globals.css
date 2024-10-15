@@ -50,6 +50,10 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+input::placeholder {
+  @apply text-muted font-light;
+}
+
 .flex-center {
   @apply flex items-center justify-center;
 }

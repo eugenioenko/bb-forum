@@ -1,16 +1,18 @@
 import { ApiResponse } from "@/models/api-response";
-import { CreatePostSchemaType } from "@/schemas/post-schema";
 import { client } from "@/services/axios.client";
-import { Post } from "@prisma/client";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { Post } from "@prisma/client";
+import { UpdatePostSchemaType } from "@/schemas/post-schema";
 
-export const useCreatePostMutation = () =>
+export const useUpdatePostMutation = () =>
   useMutation<
     ApiResponse<Post>,
     AxiosError<ApiResponse<never>>,
-    CreatePostSchemaType
+    UpdatePostSchemaType
   >({
     mutationFn: (data) =>
-      client.post("/api/post", data).then((res) => res.data),
+      client
+        .post(`/api/post/${data.postId}/update`, data)
+        .then((res) => res.data),
   });

@@ -20,8 +20,8 @@ interface ToastProps {
 }
 const Toast = ({ message }: ToastProps) => {
   return (
-    <div className="text-inverse bg-accent py-2 px-4 flex items-center rounded gap-2">
-      <div className="flex-grow">{message}</div>
+    <div className="text-inverse bg-accent py-2 px-4 flex items-center rounded gap-2 animate-fade-in-down min-w-72">
+      <div className="flex-grow text-center">{message}</div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { PostSchema } from "@/schemas/post-schema";
+import { CreatePostSchema } from "@/schemas/post-schema";
 import { authUserOrThrow } from "@/services/auth.service";
 import prisma from "@/services/prisma.client";
 import { validateSchemaOrThrow } from "@/utils/validate-request";
@@ -8,7 +8,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   try {
     const req = await request.json();
-    const content = validateSchemaOrThrow(PostSchema, req);
+    const content = validateSchemaOrThrow(CreatePostSchema, req);
     const user = authUserOrThrow(request);
 
     const post = await prisma.post.create({

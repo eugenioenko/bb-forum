@@ -1,5 +1,6 @@
 import { useCreatePostMutation } from "@/queries/client/use-create-post";
 import { useCreateThreadMutation } from "@/queries/client/use-create-thread";
+import { useUpdatePostMutation } from "@/queries/client/use-update-post";
 import { EditorSchemaType } from "@/schemas/editor-schema";
 import { useAppStore } from "@/stores/app.store";
 import { useToastStore } from "@/stores/toast.store";
@@ -19,6 +20,8 @@ export const useSubmitEditor = (isRecovery?: boolean) => {
     useCreateThreadMutation();
   const { mutate: mutatePost, isPending: isPendingPost } =
     useCreatePostMutation();
+  const { mutate: mutateUpdate, isPending: isPendingUpdate } =
+    useUpdatePostMutation();
 
   const handleError = (data: EditorSchemaType, error: AxiosError) => {
     if (error.status !== 401) {
@@ -32,7 +35,24 @@ export const useSubmitEditor = (isRecovery?: boolean) => {
   let doSubmitSuccess: (() => void) | undefined = undefined;
 
   const doSubmit: SubmitHandler<EditorSchemaType> = async (data) => {
-    if (data.categoryId) {
+    if (data.postId) {
+      mutateUpdate(
+        {
+          postId: data.postId || "",
+          title: data.title,
+          content: data.content,
+        },
+        {
+          onSuccess: () => {
+            appState.setPendingPost(null);
+            toast.addToast("Post updated successfully");
+
+            router.push(`/thread/${data.threadId}`);
+          },
+          onError: (error) => handleError(data, error),
+        }
+      );
+    } else if (data.categoryId) {
       mutateThread(
         {
           categoryId: data.categoryId || "",
@@ -78,6 +98,6 @@ export const useSubmitEditor = (isRecovery?: boolean) => {
     serverError,
     doSubmit,
     onSubmitSuccess,
-    isPending: isPendingPost || isPendingThread,
+    isPending: isPendingPost || isPendingThread || isPendingUpdate,
   };
 };

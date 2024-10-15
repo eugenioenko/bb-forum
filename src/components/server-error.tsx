@@ -1,3 +1,4 @@
+import { IconAlertCircleFilled } from "@tabler/icons-react";
 import { FC } from "react";
 
 interface Props {
@@ -13,7 +14,12 @@ export const ServerError: FC<Props> = ({ error }) => {
   }
   return (
     <div className="mt-4">
-      <div className="card p-4 text-danger font-normal">{message}</div>
+      <div className="card p-4 text-danger font-normal flex items-center gap-2">
+        <div>
+          <IconAlertCircleFilled size={32} />
+        </div>
+        <div className="flex-grow">{message}</div>
+      </div>
     </div>
   );
 };

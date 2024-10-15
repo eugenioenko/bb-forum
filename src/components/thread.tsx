@@ -33,10 +33,7 @@ export const Thread = ({ response }: ThreadProps) => {
         total={thread?._count.posts}
         skip={skip}
       />
-      <Editor
-        threadId={thread?.id}
-        threadTitle={"Re: " + thread?.posts[0].title}
-      />
+      <Editor threadId={thread?.id} title={"Re: " + thread?.posts[0].title} />
     </div>
   );
 };

@@ -1,4 +1,5 @@
 "use client";
+
 import { EditorSchema, EditorSchemaType } from "@/schemas/editor-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -8,11 +9,27 @@ import { useSubmitEditor } from "@/hooks/use-submit-editor";
 interface Props {
   categoryId?: string;
   threadId?: string;
-  threadTitle?: string;
+  postId?: string;
+  title?: string;
+  content?: string;
 }
 
-export const Editor = ({ categoryId, threadId, threadTitle }: Props) => {
-  const editorTitle = categoryId ? "Create new topic" : "Reply to topic";
+export const Editor = ({
+  categoryId,
+  threadId,
+  postId,
+  content,
+  title,
+}: Props) => {
+  let editorTitle = "";
+
+  if (postId) {
+    editorTitle = "Update post";
+  } else if (categoryId) {
+    editorTitle = "Create new topic";
+  } else if (threadId) {
+    editorTitle = "Reply to topic";
+  }
 
   const { doSubmit, serverError, isPending, onSubmitSuccess } =
     useSubmitEditor();
@@ -26,8 +43,9 @@ export const Editor = ({ categoryId, threadId, threadTitle }: Props) => {
     defaultValues: {
       categoryId,
       threadId,
-      content: "",
-      title: threadTitle || " ",
+      postId,
+      content: content || "",
+      title: title || "",
     },
   });
 
