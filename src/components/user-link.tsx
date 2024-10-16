@@ -14,7 +14,7 @@ export const UserLink = ({ user }: Props) => {
     return "";
   }
   return (
-    <Link className="text-primary" href={`/user/${user.id}`}>
+    <Link className="text-primary" href={`/profile/${user.id}`}>
       {user.username}
     </Link>
   );

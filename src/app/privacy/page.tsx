@@ -1,4 +1,9 @@
 import { bbfAdminEmail, bbfName } from "@/environment";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `${bbfName} • Privacy`,
+};
 
 export default async function PrivacyPage() {
   const effectiveDate = "11/11/2024";

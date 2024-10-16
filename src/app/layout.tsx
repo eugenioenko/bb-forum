@@ -7,9 +7,10 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "@/contexts/theme.context";
 import { Footer } from "@/components/footer";
 import { Toasts } from "@/components/toasts";
+import { bbfName } from "@/environment";
 
 export const metadata: Metadata = {
-  title: "BB Forum",
+  title: bbfName,
 };
 
 export default function RootLayout({

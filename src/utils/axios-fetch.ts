@@ -1,17 +1,27 @@
 import { ApiResponse } from "@/models/api-response";
 import axios, { AxiosResponse } from "axios";
 import { parseAxiosError } from "./axios-error";
+import { setupCache } from "axios-cache-interceptor";
 
-const client = axios.create({
+const axiosClient = axios.create({
   baseURL: process.env.BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-export async function axiosFetch<T>(url: string): Promise<ApiResponse<T>> {
+const clientWithCache = setupCache(axiosClient, {
+  ttl: 3000, // 3 seconds global cache
+});
+
+export async function axiosFetchCached<T>(
+  url: string
+): Promise<ApiResponse<T>> {
   try {
-    const response = await client.get<any, AxiosResponse<ApiResponse<T>>>(url);
+    const response = await clientWithCache.get<
+      any,
+      AxiosResponse<ApiResponse<T>>
+    >(url);
     return response.data;
   } catch (e) {
     return { error: parseAxiosError(e), data: undefined as never };

@@ -1,4 +1,9 @@
 import { bbfAdminEmail, bbfName } from "@/environment";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `${bbfName} • Terms & Conditions`,
+};
 
 export default async function TermsPage() {
   const effectiveDate = "11/11/2024";
@@ -6,7 +11,7 @@ export default async function TermsPage() {
   return (
     <div className="card mt-4">
       <div className="bg-secondary font-header text-inverse px-4 py-2">
-        Privacy
+        Terms & Conditions
       </div>
       <div className="px-4 pt-2 pb-12 paragraph">
         <h1>Terms of Service</h1>
