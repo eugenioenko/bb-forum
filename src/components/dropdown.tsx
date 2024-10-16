@@ -1,7 +1,6 @@
 import {
   autoUpdate,
   flip,
-  FloatingFocusManager,
   FloatingList,
   FloatingNode,
   FloatingPortal,
@@ -21,7 +20,6 @@ import {
   useListNavigation,
   useMergeRefs,
   useRole,
-  useTypeahead,
 } from "@floating-ui/react";
 import React, { cloneElement, useEffect } from "react";
 
@@ -31,13 +29,11 @@ const MenuContext = React.createContext<{
   ) => Record<string, unknown>;
   activeIndex: number | null;
   setActiveIndex: React.Dispatch<React.SetStateAction<number | null>>;
-  setHasFocusInside: React.Dispatch<React.SetStateAction<boolean>>;
   isOpen: boolean;
 }>({
   getItemProps: () => ({}),
   activeIndex: null,
   setActiveIndex: () => {},
-  setHasFocusInside: () => {},
   isOpen: false,
 });
 
@@ -52,12 +48,10 @@ export const MenuComponent = React.forwardRef<
   MenuProps & React.HTMLProps<HTMLButtonElement>
 >(({ children, trigger, label, ...props }, forwardedRef) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [_, setHasFocusInside] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
 
   const elementsRef = React.useRef<Array<HTMLButtonElement | null>>([]);
   const labelsRef = React.useRef<Array<string | null>>([]);
-  const parent = React.useContext(MenuContext);
 
   const tree = useFloatingTree();
   const nodeId = useFloatingNodeId();
@@ -88,17 +82,11 @@ export const MenuComponent = React.forwardRef<
   const listNavigation = useListNavigation(context, {
     listRef: elementsRef,
     activeIndex,
-    nested: false,
     onNavigate: setActiveIndex,
-  });
-  const typeahead = useTypeahead(context, {
-    listRef: labelsRef,
-    onMatch: isOpen ? setActiveIndex : undefined,
-    activeIndex,
   });
 
   const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [hover, click, role, dismiss, listNavigation, typeahead]
+    [hover, click, role, dismiss, listNavigation]
   );
 
   useEffect(() => {
@@ -136,11 +124,6 @@ export const MenuComponent = React.forwardRef<
         <button>{trigger || label}</button>,
         getReferenceProps({
           ref: mergedRefs,
-          onFocus: (event: React.FocusEvent<HTMLButtonElement>) => {
-            setHasFocusInside(false);
-            parent.setHasFocusInside(true);
-            props.onFocus?.(event);
-          },
         })
       )}
       <MenuContext.Provider
@@ -148,28 +131,20 @@ export const MenuComponent = React.forwardRef<
           activeIndex,
           setActiveIndex,
           getItemProps,
-          setHasFocusInside,
           isOpen,
         }}
       >
         <FloatingList elementsRef={elementsRef} labelsRef={labelsRef}>
           {isOpen && (
             <FloatingPortal>
-              <FloatingFocusManager
-                context={context}
-                modal={false}
-                initialFocus={0}
-                returnFocus={true}
+              <div
+                ref={refs.setFloating}
+                className="card flex flex-col"
+                style={floatingStyles}
+                {...getFloatingProps()}
               >
-                <div
-                  ref={refs.setFloating}
-                  className="card flex flex-col"
-                  style={floatingStyles}
-                  {...getFloatingProps()}
-                >
-                  {children}
-                </div>
-              </FloatingFocusManager>
+                {children}
+              </div>
             </FloatingPortal>
           )}
         </FloatingList>
@@ -208,7 +183,6 @@ export const DropdownItem = React.forwardRef<
         },
         onFocus(event: React.FocusEvent<HTMLButtonElement>) {
           props.onFocus?.(event);
-          menu.setHasFocusInside(true);
         },
       })}
     >

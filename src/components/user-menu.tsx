@@ -3,8 +3,7 @@ import { IconLogout, IconSettings, IconUser } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { Dropdown, DropdownItem } from "./dropdown";
 
-const Trigger = () => {
-  const username = useAuthStore().authUser?.username;
+const Trigger = ({ username }: { username: string }) => {
   if (!username) {
     return;
   }
@@ -18,17 +17,21 @@ const Trigger = () => {
 };
 export const UserMenu = () => {
   const router = useRouter();
+  const user = useAuthStore().authUser;
+  if (!user) {
+    return;
+  }
   return (
-    <Dropdown trigger={<Trigger />}>
+    <Dropdown trigger={<Trigger username={user.username} />}>
       <DropdownItem
         label="Profile"
         icon={<IconUser />}
-        onClick={() => console.log("Profile")}
+        onClick={() => router.push(`/profile/${user.id}`)}
       />
       <DropdownItem
         label="Settings"
         icon={<IconSettings />}
-        onClick={() => console.log("Settings")}
+        onClick={() => router.push(`/settings`)}
       />
       <DropdownItem
         label="Logout"
