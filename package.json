@@ -27,6 +27,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@floating-ui/react": "^0.26.25",
     "@hookform/resolvers": "^3.9.0",
     "@ngneat/falso": "^7.2.0",
     "@prisma/client": "^5.19.1",

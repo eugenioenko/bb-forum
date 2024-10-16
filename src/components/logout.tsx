@@ -27,6 +27,7 @@ export const Logout = () => {
 
   useEffect(() => {
     logout();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

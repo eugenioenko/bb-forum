@@ -4,7 +4,6 @@ import { useAuthStore } from "@/stores/auth.store";
 import {
   IconChevronRight,
   IconHome,
-  IconLogout,
   IconUser,
   IconUserPlus,
 } from "@tabler/icons-react";
@@ -13,6 +12,7 @@ import { usePathname } from "next/navigation";
 import { ReactElement } from "react";
 import { Logo } from "./logo";
 import { ThemeSelector } from "./theme-selector";
+import { UserMenu } from "./user-menu";
 
 export const Navbar = () => {
   const path = usePathname();
@@ -22,15 +22,7 @@ export const Navbar = () => {
 
   function signupOrLogin(): ReactElement {
     if (auth.isLoggedIn) {
-      return (
-        <Link
-          href="/auth/logout"
-          className={path === "/auth/logout" ? "underline" : ""}
-        >
-          <IconLogout />
-          Logout
-        </Link>
-      );
+      return <UserMenu />;
     }
     return (
       <>

@@ -24,7 +24,7 @@ export const Button = ({
       type={type}
       disabled={disabled || isLoading}
       data-test-id="button"
-      className={isIcon ? "" : "min-w-28"}
+      className={isIcon ? "button" : "button min-w-28"}
       {...rest}
     >
       {isLoading ? <IconFidgetSpinner className="animate-spin" /> : children}

@@ -2,11 +2,14 @@ import { IdName } from "@/models/id-name";
 import { useAppStore } from "@/stores/app.store";
 import { useEffect } from "react";
 
-export function useCurrentCategory(category?: IdName): void {
+export function useCurrentCategory(newCategory?: IdName): void {
   const appStore = useAppStore();
+  const currentCategory = appStore.currentCategory;
+  const setCurrentCategory = appStore.setCurrentCategory;
+
   useEffect(() => {
-    if (appStore.currentCategory !== category) {
-      appStore.setCurrentCategory(category);
+    if (currentCategory !== newCategory) {
+      setCurrentCategory(newCategory);
     }
-  }, [category]);
+  }, [newCategory, currentCategory, setCurrentCategory]);
 }
