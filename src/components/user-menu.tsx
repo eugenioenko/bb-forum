@@ -11,7 +11,7 @@ const Trigger = ({ username }: { username: string }) => {
   return (
     <div className="flex items-center gap-1">
       <IconUser />
-      <div className="flex-grow">{username}</div>
+      <div className="flex-grow font-normal">{username}</div>
     </div>
   );
 };

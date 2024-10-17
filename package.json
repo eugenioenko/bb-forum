@@ -47,7 +47,6 @@
     "axios-cache-interceptor": "^1.6.0",
     "bcrypt": "^5.1.1",
     "dataloader": "^2.2.2",
-    "date-fns": "^3.6.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.9",
     "jsdom": "^25.0.0",
