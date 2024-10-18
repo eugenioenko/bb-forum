@@ -1,6 +1,7 @@
 import prisma from "@/services/prisma.client";
 
 export type HomePageModel = Awaited<ReturnType<typeof queryHomePage>>;
+export type HomeCategory = HomePageModel[number]["categories"][number];
 export const queryHomePage = async () =>
   await prisma.section.findMany({
     include: {

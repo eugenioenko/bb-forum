@@ -1,6 +1,5 @@
 import { ThreadPostModel } from "@/queries/server/thread.prisma";
 import { Author } from "./author";
-import { Content } from "./content";
 import { longDateFormatter } from "@/utils/date-formatter";
 import { Button } from "./button";
 import { IconEdit } from "@tabler/icons-react";
@@ -33,6 +32,21 @@ export const Post = ({ post }: PostProps) => {
           <Author user={post.user} />
         </div>
       </div>
+    </div>
+  );
+};
+
+interface ContentProps {
+  content: string;
+}
+
+const Content = ({ content }: ContentProps) => {
+  const paragraphs = (content || "").split("\n");
+  return (
+    <div className="post max-w-[75ch]">
+      {paragraphs.map((paragraph, index) => (
+        <p key={index}>{paragraph}</p>
+      ))}
     </div>
   );
 };

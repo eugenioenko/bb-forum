@@ -2,7 +2,7 @@ import { CategoryThreadModel } from "@/queries/server/category.prisma";
 import { UserLink } from "./user-link";
 
 interface Props {
-  thread: CategoryThreadModel;
+  thread: Partial<CategoryThreadModel>;
 }
 
 export const LastPost = ({ thread }: Props) => {
@@ -12,14 +12,14 @@ export const LastPost = ({ thread }: Props) => {
 
   return (
     <div>
-      <div className="content-ellipsis">{thread.posts[0].title}</div>
+      <div className="content-ellipsis">{thread.posts?.[0].title}</div>
       <LastPostUser thread={thread} />
     </div>
   );
 };
 
 const LastPostUser = ({ thread }: Props) => {
-  if (thread.posts.length) {
+  if (thread?.posts?.length) {
     return (
       <div>
         by <UserLink user={thread.posts[0].user} />
