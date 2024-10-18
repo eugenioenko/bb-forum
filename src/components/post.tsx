@@ -41,10 +41,15 @@ const EditPost = ({ post }: { post: ThreadPostModel }) => {
   const currentUserId = useAuthStore().authUser?.id;
   const router = useRouter();
 
+  const openEditor = () => {
+    router.push(`/editor/${post.id}`);
+    router.refresh();
+  };
+
   if (currentUserId && currentUserId === post.user.id) {
     return (
       <div className="flex flex-row justify-end gap-2">
-        <Button isIcon onClick={() => router.push(`/editor/${post.id}`)}>
+        <Button isIcon onClick={() => openEditor()}>
           <IconEdit size={20} />
         </Button>
       </div>

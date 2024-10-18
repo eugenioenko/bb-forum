@@ -1,3 +1,4 @@
+import { envIsDevelopment } from "@/environment";
 import { AuthUserModel } from "@/models/auth-user";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
@@ -16,6 +17,6 @@ export const useAuthStore = create<AuthState>()(
       setAuthUser: (authUser) =>
         set((state) => ({ authUser, isLoggedIn: !!authUser?.token })),
     }),
-    { name: "authStore", enabled: true }
+    { name: "authStore", enabled: envIsDevelopment }
   )
 );

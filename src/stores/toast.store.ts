@@ -1,3 +1,4 @@
+import { envIsDevelopment } from "@/environment";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
@@ -32,6 +33,6 @@ export const useToastStore = create<ToastStore>()(
         }, 3000);
       },
     }),
-    { name: "toastStore", enabled: true }
+    { name: "toastStore", enabled: envIsDevelopment }
   )
 );

@@ -1,3 +1,4 @@
+import { envIsDevelopment } from "@/environment";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
@@ -13,7 +14,7 @@ export const useConfigStore = create<ConfigState>()(
         theme: undefined,
         setTheme: (theme) => set((state) => ({ ...state, theme })),
       }),
-      { name: "configStore", enabled: true }
+      { name: "configStore", enabled: envIsDevelopment }
     ),
     {
       name: "bbf-config",

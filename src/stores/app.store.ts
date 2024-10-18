@@ -1,3 +1,4 @@
+import { envIsDevelopment } from "@/environment";
 import { IdName } from "@/models/id-name";
 import { EditorSchemaType } from "@/schemas/editor-schema";
 import { create } from "zustand";
@@ -20,6 +21,6 @@ export const useAppStore = create<AppState>()(
       setPendingPost: (pendingPost) =>
         set((state) => ({ ...state, pendingPost })),
     }),
-    { name: "appStore", enabled: true }
+    { name: "appStore", enabled: envIsDevelopment }
   )
 );

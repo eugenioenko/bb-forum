@@ -10,3 +10,4 @@ export default async function HomePage() {
     return <ServerError error={e} />;
   }
 }
+export const dynamic = "force-dynamic";

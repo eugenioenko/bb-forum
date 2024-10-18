@@ -46,7 +46,6 @@ export const useSubmitEditor = (isRecovery?: boolean) => {
           onSuccess: () => {
             appState.setPendingPost(null);
             toast.addToast("Post updated successfully");
-
             router.push(`/thread/${data.threadId}`);
           },
           onError: (error) => handleError(data, error),
@@ -64,6 +63,7 @@ export const useSubmitEditor = (isRecovery?: boolean) => {
             appState.setPendingPost(null);
             toast.addToast("Topic published successfully");
             router.push(`/thread/${data.data.threadId}`);
+            router.refresh();
           },
           onError: (error) => handleError(data, error),
         }
@@ -81,6 +81,7 @@ export const useSubmitEditor = (isRecovery?: boolean) => {
             toast.addToast("Post published successfully");
             if (isRecovery) {
               router.push(`/thread/${data.threadId}`);
+              router.refresh();
             }
             doSubmitSuccess?.();
           },

@@ -26,11 +26,13 @@ export const ThemeSelector = () => {
     document.body.className = theme;
     configState.setTheme(theme);
   };
+
   return (
     <select
-      value={configState.theme || ""}
+      value={configState.theme || undefined}
       onChange={(e) => setTheme(e.currentTarget.value)}
     >
+      <option value={undefined}>Select theme</option>
       {themeNames.map((theme) => (
         <option key={theme[0]} value={theme[0]}>
           {theme[1]}
