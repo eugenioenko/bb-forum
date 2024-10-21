@@ -89,3 +89,11 @@ p {
 .paragraph > ul {
   @apply list-disc pl-6;
 }
+
+.card-header {
+  @apply bg-secondary font-header text-inverse px-4 py-2;
+}
+
+.card-body {
+  @apply px-4 py-2;
+}

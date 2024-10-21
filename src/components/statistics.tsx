@@ -10,9 +10,7 @@ export const Statistics = () => {
   const stats = data?.data;
   return (
     <div className="card">
-      <div className="bg-secondary font-header text-inverse px-4 py-2">
-        Statistics
-      </div>
+      <div className="card-header">Statistics</div>
       <div className="px-4 py-2 flex flex-wrap gap-1">
         <div>
           Posts <b>{stats?.posts}</b>

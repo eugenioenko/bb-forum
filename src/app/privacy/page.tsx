@@ -10,9 +10,7 @@ export default async function PrivacyPage() {
 
   return (
     <div className="card mt-4">
-      <div className="bg-secondary font-header text-inverse px-4 py-2">
-        Privacy
-      </div>
+      <div className="card-header">Privacy</div>
       <div className="px-4 pt-2 pb-12 paragraph">
         <h1>Privacy Policy</h1>
         <p>Effective Date: {effectiveDate}</p>

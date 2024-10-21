@@ -10,6 +10,7 @@ import { sign, verify } from "jsonwebtoken";
 import { cookies } from "next/headers";
 import type { NextRequest } from "next/server";
 import prisma from "./prisma.client";
+import { ChangePasswordSchemaType } from "@/schemas/change-pwd.schema";
 
 export async function loginUserOrThrow(
   credentials: LoginSchemaType
@@ -111,4 +112,37 @@ export function authUserOrThrow(request: NextRequest): IdSchemaType {
   }
   const decoded = verify(token, process.env.ACCESS_TOKEN_SECRET_KEY || "");
   return validateSchemaOrThrow(IdSchema, decoded);
+}
+
+export async function changePasswordOrThrow(
+  userId: string,
+  credentials: ChangePasswordSchemaType
+): Promise<boolean> {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+
+  if (!user) {
+    throw new HttpException(409, "User does not match records");
+  }
+
+  const isPasswordMatching = await compare(
+    credentials.currentPassword,
+    user.password
+  );
+
+  if (!isPasswordMatching) {
+    throw new HttpException(409, "Password does not match records");
+  }
+
+  const hashedPassword = await hash(credentials.newPassword, 10);
+
+  await prisma.user.update({
+    data: {
+      password: hashedPassword,
+    },
+    where: { id: user.id },
+  });
+
+  return true;
 }
