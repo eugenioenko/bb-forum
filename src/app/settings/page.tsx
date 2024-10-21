@@ -1,9 +1,9 @@
-import { ChangePwdForm } from "@/components/change-pwd";
+import { Settings } from "@/components/settings";
 
 export default async function SettingsPage() {
   return (
     <div className="pt-4">
-      <ChangePwdForm />
+      <Settings />
     </div>
   );
 }
