@@ -1,4 +1,5 @@
 "use client";
+
 import { useSubmitPassword } from "@/hooks/use-submit-password";
 import {
   ChangePasswordSchemaRefined,
