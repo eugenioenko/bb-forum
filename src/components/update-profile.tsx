@@ -5,17 +5,38 @@ import { useForm } from "react-hook-form";
 import { Button } from "./button";
 import { ProfileSchemaType, ProfileSchema } from "@/schemas/profile-schema";
 import { useSubmitProfile } from "@/hooks/use-submit-profile";
+import { usePrefetchedQuery } from "@/utils/use-prefetched-query";
+import { ProfileModel } from "@/queries/server/profile.prisma";
+import { useAuthStore } from "@/stores/auth.store";
+import { Skeleton } from "./skeleton";
+import { useEffect } from "react";
 
 export const UpdateProfile = () => {
+  const userId = useAuthStore().authUser?.id;
+  const { data, isLoading } = usePrefetchedQuery<ProfileModel>(
+    `/api/profile/${userId}`
+  );
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<ProfileSchemaType>({
     resolver: zodResolver(ProfileSchema),
   });
 
+  useEffect(() => {
+    if (data?.data.profile?.bio) {
+      setValue("bio", data?.data.profile?.bio);
+    }
+  }, [data, setValue]);
+
   const { serverError, isPending, doSubmit } = useSubmitProfile();
+
+  if (isLoading) {
+    return <Skeleton />;
+  }
 
   return (
     <form onSubmit={handleSubmit(doSubmit)} className="card">
