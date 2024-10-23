@@ -1,6 +1,8 @@
 # BB Forum - Minimalistic Bulletin Board Forum
 
-This is a Work In Progress
+### > [Live preview here](https://bbforum.duckdns.org/)
+
+This is a Work In Progress of a minimalisting bulleting board
 
 ## Features
 
