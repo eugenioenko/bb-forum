@@ -6,6 +6,7 @@ import { devtools } from "zustand/middleware";
 export interface AuthState {
   authUser: AuthUserModel | null | undefined;
   isLoggedIn: boolean;
+  isAdmin: boolean;
   setAuthUser: (authUser: AuthUserModel | null) => void;
 }
 
@@ -14,8 +15,14 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       authUser: undefined,
       isLoggedIn: false,
-      setAuthUser: (authUser) =>
-        set((state) => ({ authUser, isLoggedIn: !!authUser?.token })),
+      isAdmin: false,
+      setAuthUser: (authUser) => {
+        return set((_) => ({
+          authUser,
+          isLoggedIn: !!authUser?.token,
+          isAdmin: !!authUser?.roles.includes("admin"),
+        }));
+      },
     }),
     { name: "authStore", enabled: envIsDevelopment }
   )

@@ -11,13 +11,15 @@ import { cookies } from "next/headers";
 import type { NextRequest } from "next/server";
 import prisma from "./prisma.client";
 import { ChangePasswordSchemaType } from "@/schemas/change-pwd.schema";
+import {
+  queryAuthUserByEmail,
+  queryAuthUserById,
+} from "@/queries/server/auth-user.prisma";
 
 export async function loginUserOrThrow(
   credentials: LoginSchemaType
 ): Promise<AuthUserModel> {
-  const user = await prisma.user.findUnique({
-    where: { email: credentials.email },
-  });
+  const user = await queryAuthUserByEmail(credentials.email);
   if (!user) {
     throw new HttpException(409, "Email or password does not match");
   }
@@ -43,11 +45,10 @@ export async function loginUserOrThrow(
 export async function signupUserOrThrow(
   credentials: SignupSchemaType
 ): Promise<AuthUserModel> {
-  const findUser = await prisma.user.findUnique({
-    where: { email: credentials.email },
-  });
-  if (findUser)
+  const findUser = await queryAuthUserByEmail(credentials.email);
+  if (findUser) {
     throw new HttpException(409, `Email "${credentials.email}" already in use`);
+  }
 
   const hashedPassword = await hash(credentials.password, 10);
   const user = await prisma.user.create({
@@ -75,9 +76,12 @@ export async function refreshUser(): Promise<AuthUserModel> {
     process.env.REFRESH_TOKEN_SECRET_KEY || ""
   );
   const token = validateSchemaOrThrow(IdSchema, decoded);
-  const foundUser = await prisma.user.findUniqueOrThrow({
-    where: { id: token.id },
-  });
+
+  const foundUser = await queryAuthUserById(token.id);
+  if (!foundUser) {
+    throw new HttpException(409, "User does not match records");
+  }
+
   const accessToken = createAccessToken(token.id);
   const authUser = userToAuthUserMapper(foundUser, accessToken);
   return authUser;
@@ -118,9 +122,7 @@ export async function changePasswordOrThrow(
   userId: string,
   credentials: ChangePasswordSchemaType
 ): Promise<boolean> {
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-  });
+  const user = await queryAuthUserById(userId);
 
   if (!user) {
     throw new HttpException(409, "User does not match records");

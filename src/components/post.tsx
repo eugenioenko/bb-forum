@@ -53,6 +53,7 @@ const Content = ({ content }: ContentProps) => {
 
 const EditPost = ({ post }: { post: ThreadPostModel }) => {
   const currentUserId = useAuthStore().authUser?.id;
+  const isAdmin = useAuthStore().isAdmin;
   const router = useRouter();
 
   const openEditor = () => {
@@ -60,7 +61,7 @@ const EditPost = ({ post }: { post: ThreadPostModel }) => {
     router.refresh();
   };
 
-  if (currentUserId && currentUserId === post.user.id) {
+  if (isAdmin || (currentUserId && currentUserId === post.user.id)) {
     return (
       <div className="flex flex-row justify-end gap-2">
         <Button isIcon onClick={() => openEditor()}>
