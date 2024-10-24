@@ -6,7 +6,7 @@ export const EditorSchema = z.object({
   postId: z.string().uuid().optional(),
   title: z.preprocess(
     (input) => (typeof input === "string" ? input.trim() : input),
-    z.string().min(4)
+    z.string().min(1)
   ),
   content: z.preprocess(
     (input) => (typeof input === "string" ? input.trim() : input),

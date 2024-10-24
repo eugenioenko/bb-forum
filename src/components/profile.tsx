@@ -18,7 +18,7 @@ export const Profile = ({ profile }: ProfileProps) => {
           Profile
         </div>
         <div className="p-4 flex flex-col items-center gap-4">
-          <Avatar username="John Doe" />
+          <Avatar username={profile.username} />
           <div className="text-xl md:text-3xl font-semibold">
             {profile.username}
           </div>

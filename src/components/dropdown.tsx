@@ -173,7 +173,7 @@ export const DropdownItem = React.forwardRef<
       ref={useMergeRefs([item.ref, forwardedRef])}
       type="button"
       role="menuitem"
-      className="py-1.5  px-3 flex items-center gap-2 hover:bg-accent hover:text-inverse"
+      className="py-2 px-3 flex items-center gap-2 hover:bg-accent hover:text-inverse"
       tabIndex={isActive ? 0 : -1}
       disabled={disabled}
       {...menu.getItemProps({
