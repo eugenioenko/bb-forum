@@ -1,6 +1,6 @@
 # BB Forum - Minimalistic Bulletin Board Forum
 
-### > [Live preview here](https://bbforum.duckdns.org/)
+### > [Live preview here](https://bbforum.yy-dev.top)
 
 This is a Work In Progress of a minimalisting bulleting board
 
