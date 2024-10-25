@@ -2,7 +2,7 @@
 
 ### > [Live preview here](https://bbforum.yy-dev.top)
 
-This is a Work In Progress of a minimalisting bulleting board
+This is a Work In Progress of a minimalisting bulletin board
 
 ## Features
 
