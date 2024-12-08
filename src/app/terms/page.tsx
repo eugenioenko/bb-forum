@@ -9,7 +9,7 @@ export default async function TermsPage() {
   const effectiveDate = "11/11/2024";
 
   return (
-    <div className="card mt-4">
+    <div className="card mt-4" data-test-id="terms-page">
       <div className="card-header">Terms & Conditions</div>
       <div className="px-4 pt-2 pb-12 paragraph">
         <h1>Terms of Service</h1>

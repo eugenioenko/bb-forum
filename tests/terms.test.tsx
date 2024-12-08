@@ -1,13 +1,13 @@
 import { expect, test } from "vitest";
 import { render } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
-import HomePage from "@/app/home/page";
-import { ApiResponse, SectionModel } from "@/models/api-response";
+import { ApiResponse } from "@/models/api-response";
 import { setupMSW } from "./setup-msw";
+import TermsPage from "@/app/terms/page";
 
 export const handlers = [
   http.get("http://localhost:4200/api/home", () => {
-    const response: ApiResponse<SectionModel[]> = {
+    const response: ApiResponse<any> = {
       data: [
         {
           id: "22c76940-939d-4d93-8694-80820467c3d7",
@@ -31,9 +31,8 @@ export const handlers = [
 setupMSW(handlers);
 
 test("Page", async () => {
-  const component = await HomePage();
+  const component = await TermsPage();
   const result = render(component);
-  const btn = result.container.querySelector('[data-test-id="button"]');
-  expect(btn).toBeTruthy();
-  expect(btn?.textContent).toEqual("Button1");
+  const content = result.container.querySelector('[data-test-id="terms-page"]');
+  expect(content).toBeTruthy();
 });
