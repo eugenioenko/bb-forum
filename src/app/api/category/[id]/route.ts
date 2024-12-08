@@ -6,10 +6,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const categoryId = validateSchemaOrThrow(IdSchema, params).id;
+    const args = await params;
+    const categoryId = validateSchemaOrThrow(IdSchema, args).id;
     const querySkip = request.nextUrl.searchParams.get("skip");
     const skip = positiveIntegerOrZero(querySkip);
     const category = await queryCategory(categoryId, { skip });

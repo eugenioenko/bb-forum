@@ -3,9 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   _: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const args = await params;
     const posts = await prisma.post.count();
     const threads = await prisma.thread.count();
     const users = await prisma.user.count();
@@ -19,7 +20,7 @@ export async function GET(
       },
     });
 
-    const data = { posts, threads, users, lastUser, slug: params.slug };
+    const data = { posts, threads, users, lastUser, slug: args.slug };
     return NextResponse.json({ data }, { status: 200 });
   } catch (err: any) {
     return NextResponse.json(

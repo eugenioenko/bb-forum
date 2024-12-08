@@ -4,12 +4,13 @@ import { ProfileModel } from "@/queries/server/profile.prisma";
 import { axiosFetchCached } from "@/utils/axios-fetch";
 
 interface PageProps {
-  params: { userId: string | undefined };
+  params: Promise<{ userId: string | undefined }>;
 }
 
 export default async function ProfilePage({ params }: PageProps) {
+  const args = await params;
   const res = await axiosFetchCached<ProfileModel>(
-    `/api/profile/${params.userId}`
+    `/api/profile/${args.userId}`
   );
 
   if (res.error) {

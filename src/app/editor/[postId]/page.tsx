@@ -6,13 +6,14 @@ import { axiosFetchCached } from "@/utils/axios-fetch";
 import { Metadata } from "next";
 
 interface PageProps {
-  params: { postId: string | undefined };
+  params: Promise<{ postId: string | undefined }>;
 }
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
+  const args = await params;
   const res = await axiosFetchCached<UpdatePostModel>(
-    `/api/post/${params.postId}`
+    `/api/post/${args.postId}`
   );
 
   if (res.error) {
@@ -27,8 +28,9 @@ export async function generateMetadata({
 }
 
 export default async function EditorPage({ params }: PageProps) {
+  const args = await params;
   const res = await axiosFetchCached<UpdatePostModel>(
-    `/api/post/${params.postId}`
+    `/api/post/${args.postId}`
   );
 
   if (res.error || !res.data) {
@@ -40,7 +42,7 @@ export default async function EditorPage({ params }: PageProps) {
   return (
     <div className="pt-4">
       <Editor
-        postId={params.postId}
+        postId={args.postId}
         content={content}
         title={title}
         threadId={threadId}

@@ -6,16 +6,18 @@ import { axiosFetchCached } from "@/utils/axios-fetch";
 import { Metadata } from "next";
 
 interface PageProps {
-  searchParams: { [key: string]: string | undefined };
-  params: { threadId: string | undefined };
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+  params: Promise<{ threadId: string | undefined }>;
 }
 
 export async function generateMetadata({
   params,
   searchParams,
 }: PageProps): Promise<Metadata> {
+  const args = await params;
+  const search = await searchParams;
   const res = await axiosFetchCached<ThreadModel>(
-    `/api/thread/${params.threadId}?skip=${searchParams.skip || 0}`
+    `/api/thread/${args.threadId}?skip=${search.skip || 0}`
   );
 
   if (res.error) {
@@ -30,8 +32,10 @@ export async function generateMetadata({
 }
 
 export default async function ThreadPage({ params, searchParams }: PageProps) {
+  const args = await params;
+  const search = await searchParams;
   const res = await axiosFetchCached<ThreadModel>(
-    `/api/thread/${params.threadId}?skip=${searchParams.skip || 0}`
+    `/api/thread/${args.threadId}?skip=${search.skip || 0}`
   );
 
   if (res.error) {

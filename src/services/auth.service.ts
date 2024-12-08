@@ -32,8 +32,8 @@ export async function loginUserOrThrow(
   const accessToken = createAccessToken(user.id);
   const refreshToken = createRefreshToken(user.id);
   const authUser = userToAuthUserMapper(user, accessToken);
+  const cookieStore = await cookies();
 
-  const cookieStore = cookies();
   cookieStore.set("refreshToken", refreshToken, {
     httpOnly: true,
     sameSite: "strict",
@@ -58,8 +58,8 @@ export async function signupUserOrThrow(
   const accessToken = createAccessToken(user.id);
   const refreshToken = createRefreshToken(user.id);
   const authUser = userToAuthUserMapper(user, accessToken);
+  const cookieStore = await cookies();
 
-  const cookieStore = cookies();
   cookieStore.set("refreshToken", refreshToken, {
     httpOnly: true,
     sameSite: "strict",
@@ -69,7 +69,7 @@ export async function signupUserOrThrow(
 }
 
 export async function refreshUser(): Promise<AuthUserModel> {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const refreshToken = cookieStore.get("refreshToken");
   const decoded = verify(
     refreshToken?.value || "",
@@ -88,7 +88,8 @@ export async function refreshUser(): Promise<AuthUserModel> {
 }
 
 export async function logoutUser(): Promise<void> {
-  cookies().delete("refreshToken");
+  const cookieStore = await cookies();
+  cookieStore.delete("refreshToken");
 }
 
 function createAccessToken(userId: string): string {

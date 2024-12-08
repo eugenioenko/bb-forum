@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     });
     return NextResponse.json({ data: post }, { status: 201 });
   } catch (err: any) {
-    const error = "Unexpected error when creating a topic";
-    return NextResponse.json({ error, data: null }, { status: 409 });
+    const error = err?.message || "Unexpected error when creating a topic";
+    return NextResponse.json({ error, data: null }, { status: 401 });
   }
 }

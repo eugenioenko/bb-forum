@@ -5,10 +5,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   _: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = validateSchemaOrThrow(IdSchema, params).id;
+    const args = await params;
+    const userId = validateSchemaOrThrow(IdSchema, args).id;
     const profile = await queryProfile(userId);
 
     return NextResponse.json({ data: profile }, { status: 200 });

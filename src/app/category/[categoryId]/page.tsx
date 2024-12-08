@@ -6,16 +6,18 @@ import { axiosFetchCached } from "@/utils/axios-fetch";
 import { Metadata } from "next";
 
 interface PageProps {
-  searchParams: { [key: string]: string | undefined };
-  params: { categoryId: string | undefined };
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+  params: Promise<{ categoryId: string | undefined }>;
 }
 
 export async function generateMetadata({
   params,
   searchParams,
 }: PageProps): Promise<Metadata> {
+  const search = await searchParams;
+  const args = await params;
   const res = await axiosFetchCached<CategoryModel>(
-    `/api/category/${params.categoryId}?skip=${searchParams.skip || 0}`
+    `/api/category/${args.categoryId}?skip=${search.skip || 0}`
   );
 
   if (res.error) {
@@ -33,8 +35,10 @@ export default async function CategoryPage({
   params,
   searchParams,
 }: PageProps) {
+  const search = await searchParams;
+  const args = await params;
   const res = await axiosFetchCached<CategoryModel>(
-    `/api/category/${params.categoryId}?skip=${searchParams.skip || 0}`
+    `/api/category/${args.categoryId}?skip=${search.skip || 0}`
   );
 
   if (res.error) {
