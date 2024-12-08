@@ -7,10 +7,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-  output   = "erd.pdf"
-}
+//generator erd {
+//provider = "prisma-erd-generator"
+//output   = "erd.pdf"
+//enabled  = "false"
+//}
 
 model User {
   id        String     @id @default(uuid())

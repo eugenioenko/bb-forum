@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
           userRoles: true,
         },
       });
-      const hasAdminRole = admin.userRoles.find((role) =>
+      const hasAdminRole = admin.userRoles.find((role: { roleId: string }) =>
         ["admin", "mod"].includes(role.roleId)
       );
       if (!hasAdminRole) {
