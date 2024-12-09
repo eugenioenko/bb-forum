@@ -17,7 +17,7 @@ export const useAuthStore = create<AuthState>()(
       isLoggedIn: false,
       isAdmin: false,
       setAuthUser: (authUser) => {
-        return set((_) => ({
+        return set(() => ({
           authUser,
           isLoggedIn: !!authUser?.token,
           isAdmin: !!authUser?.roles.includes("admin"),

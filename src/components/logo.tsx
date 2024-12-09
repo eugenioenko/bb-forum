@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const Logo = () => {
   return (
-    <Link href="/home">
+    <Link href="/home" aria-label="go to home">
       <svg
         viewBox="0 0 256 256"
         widths="256"

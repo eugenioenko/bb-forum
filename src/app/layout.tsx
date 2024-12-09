@@ -11,6 +11,7 @@ import { bbfName } from "@/environment";
 
 export const metadata: Metadata = {
   title: bbfName,
+  description: "Bulletin Board Forum powered by Next.js",
 };
 
 export default function RootLayout({
@@ -20,6 +21,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Squada+One&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <ThemeProvider>
         <body>
           <AxiosProvider>

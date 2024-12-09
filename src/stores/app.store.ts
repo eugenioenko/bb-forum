@@ -15,11 +15,9 @@ export const useAppStore = create<AppState>()(
   devtools(
     (set) => ({
       currentCategory: undefined,
-      setCurrentCategory: (currentCategory) =>
-        set((state) => ({ ...state, currentCategory })),
+      setCurrentCategory: (currentCategory) => set(() => ({ currentCategory })),
       pendingPost: undefined,
-      setPendingPost: (pendingPost) =>
-        set((state) => ({ ...state, pendingPost })),
+      setPendingPost: (pendingPost) => set(() => ({ pendingPost })),
     }),
     { name: "appStore", enabled: envIsDevelopment }
   )

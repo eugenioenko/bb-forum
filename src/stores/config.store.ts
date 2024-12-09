@@ -12,7 +12,7 @@ export const useConfigStore = create<ConfigState>()(
     devtools(
       (set) => ({
         theme: undefined,
-        setTheme: (theme) => set((state) => ({ ...state, theme })),
+        setTheme: (theme) => set(() => ({ theme })),
       }),
       { name: "configStore", enabled: envIsDevelopment }
     ),

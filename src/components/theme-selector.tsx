@@ -31,6 +31,7 @@ export const ThemeSelector = () => {
     <select
       value={configState.theme || undefined}
       onChange={(e) => setTheme(e.currentTarget.value)}
+      aria-label="Select theme"
     >
       <option value={undefined}>Select theme</option>
       {themeNames.map((theme) => (
