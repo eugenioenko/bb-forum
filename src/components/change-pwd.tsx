@@ -55,7 +55,7 @@ export const ChangePwdForm = () => {
             <label>Confirm Password</label>
             <input
               className="w-full"
-              placeholder="Confirm password"
+              placeholder="confirm password"
               type="password"
               autoComplete="new-password"
               {...register("confirmPassword")}

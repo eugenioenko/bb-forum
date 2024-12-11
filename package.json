@@ -46,6 +46,7 @@
     "@types/react-dom": "^19.0.1",
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/browser": "^2.1.8",
+    "arctic": "^2.3.0",
     "axios": "^1.7.9",
     "axios-cache-interceptor": "^1.6.2",
     "bcrypt": "^5.1.1",

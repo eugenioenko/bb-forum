@@ -42,6 +42,26 @@ export async function loginUserOrThrow(
   return authUser;
 }
 
+export async function loginUserByEmailOrThrow(
+  email: string
+): Promise<AuthUserModel> {
+  const user = await queryAuthUserByEmail(email);
+  if (!user) {
+    throw new HttpException(409, "Email or password does not match");
+  }
+  const accessToken = createAccessToken(user.id);
+  const refreshToken = createRefreshToken(user.id);
+  const authUser = userToAuthUserMapper(user, accessToken);
+  const cookieStore = await cookies();
+
+  cookieStore.set("refreshToken", refreshToken, {
+    httpOnly: true,
+    sameSite: "strict",
+  });
+
+  return authUser;
+}
+
 export async function signupUserOrThrow(
   credentials: SignupSchemaType
 ): Promise<AuthUserModel> {

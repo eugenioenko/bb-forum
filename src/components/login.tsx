@@ -6,6 +6,13 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { Button } from "./button";
 import { Logo } from "./logo";
+import {
+  IconBrandGit,
+  IconBrandGithub,
+  IconBrandGoogle,
+  IconBrandGoogleFilled,
+  IconBrandTwitter,
+} from "@tabler/icons-react";
 
 export const Login = () => {
   const {
@@ -59,6 +66,7 @@ export const Login = () => {
         <Button type="submit" isLoading={isPending}>
           Login
         </Button>
+        <LoginWith />
         <div className="text-center">
           <span>Not a member?</span>
 
@@ -67,6 +75,16 @@ export const Login = () => {
           </Link>
         </div>
       </form>
+    </div>
+  );
+};
+
+export const LoginWith = () => {
+  return (
+    <div className="text-center pt-4 flex gap-4 justify-center">
+      <Link className="button" href="/api/auth/google">
+        <IconBrandGoogleFilled />
+      </Link>
     </div>
   );
 };
