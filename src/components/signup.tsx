@@ -87,7 +87,7 @@ export const Signup = () => {
         <Button type="submit" isLoading={isPending}>
           Sign Up
         </Button>
-        <div className="text-center">
+        <div className="text-center py-2">
           <span>Have an account?</span>
           <Link href="/auth/login" className="text-primary ml-1 underline">
             Login here

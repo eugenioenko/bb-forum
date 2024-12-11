@@ -48,7 +48,7 @@ export const Login = () => {
             <span className="error">{errors.email.message}</span>
           )}
         </div>
-        <div>
+        <div className="pb-4">
           <label>Password</label>
           <input
             className="w-full"
@@ -61,29 +61,43 @@ export const Login = () => {
             <span className="error">{errors.password.message}</span>
           )}
         </div>
-        <div className="pt-2"></div>
-        {serverError && <span className="error">{serverError}</span>}
+        {serverError && <span className="error pt-2">{serverError}</span>}
         <Button type="submit" isLoading={isPending}>
           Login
         </Button>
-        <LoginWith />
-        <div className="text-center">
-          <span>Not a member?</span>
-
-          <Link href="/auth/signup" className="text-primary ml-1 underline">
-            Create account
-          </Link>
+        <div className="flex py-2 items-center gap-4 opacity-75">
+          <div className="flex-grow">
+            <div className="border-t border-border"></div>
+          </div>
+          <div>Or</div>
+          <div className="flex-grow">
+            <div className="border-t border-border"></div>
+          </div>
         </div>
+        <LoginWith />
+        <NotAMember />
       </form>
+    </div>
+  );
+};
+
+export const NotAMember = () => {
+  return (
+    <div className="text-center py-2">
+      <span>Not a member?</span>
+      <Link href="/auth/signup" className="text-primary ml-1 underline">
+        Create account
+      </Link>
     </div>
   );
 };
 
 export const LoginWith = () => {
   return (
-    <div className="text-center pt-4 flex gap-4 justify-center">
-      <Link className="button" href="/api/auth/google">
+    <div className="text-center flex gap-4 justify-center">
+      <Link className="button w-full flex" href="/api/auth/google">
         <IconBrandGoogleFilled />
+        <span className="flex-grow">Login with Google</span>
       </Link>
     </div>
   );
