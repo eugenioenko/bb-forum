@@ -11,6 +11,13 @@ export async function POST(request: NextRequest) {
     const content = validateSchemaOrThrow(ProfileSchema, req);
     const user = authUserOrThrow(request);
 
+    await prisma.user.update({
+      data: {
+        username: content.username,
+      },
+      where: { id: user.id },
+    });
+
     const profile = await prisma.profile.upsert({
       where: {
         userId: user.id,

@@ -2,6 +2,7 @@
 
 import { useUpdateProfileMutation } from "@/queries/client/use-update-profile";
 import { ProfileSchemaType } from "@/schemas/profile-schema";
+import { useAuthStore } from "@/stores/auth.store";
 import { useToastStore } from "@/stores/toast.store";
 import { parseAxiosError } from "@/utils/axios-error";
 import { useState } from "react";
@@ -19,6 +20,10 @@ export const useSubmitProfile = () => {
       },
       onSuccess: () => {
         toast.addToast("Profile updated successfully");
+        const { setUsername, authUser } = useAuthStore.getState();
+        if (authUser?.username !== data.username) {
+          setUsername(data.username);
+        }
       },
     });
   };
