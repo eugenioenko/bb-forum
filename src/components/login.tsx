@@ -94,10 +94,14 @@ export const NotAMember = () => {
 
 export const LoginWith = () => {
   return (
-    <div className="text-center flex gap-4 justify-center">
+    <div className="text-center flex flex-col gap-4 justify-center">
       <Link className="button w-full flex" href="/api/auth/google">
         <IconBrandGoogleFilled />
         <span className="flex-grow">Login with Google</span>
+      </Link>
+      <Link className="button w-full flex" href="/api/auth/github">
+        <IconBrandGithub />
+        <span className="flex-grow">Login with Github</span>
       </Link>
     </div>
   );

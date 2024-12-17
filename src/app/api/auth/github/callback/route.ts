@@ -1,13 +1,12 @@
 import { queryAuthUserByEmail } from "@/queries/server/auth-user.prisma";
-import { GoogleClaimSchema } from "@/schemas/google-claim.schema";
+import { GithubClaimSchema } from "@/schemas/github-clam.schema";
 import {
   loginUserByIdOrThrow,
   signupUserOrThrow,
 } from "@/services/auth.service";
-import { google } from "@/services/google.client";
+import { github } from "@/services/github.client";
 import { validateSchemaOrThrow } from "@/utils/validate-request";
 import { randPassword } from "@ngneat/falso";
-import { decodeIdToken } from "arctic";
 import { cookies } from "next/headers";
 
 export async function GET(request: Request): Promise<Response> {
@@ -16,28 +15,29 @@ export async function GET(request: Request): Promise<Response> {
   const state = url.searchParams.get("state");
 
   const cookieStore = await cookies();
-  const storedState = cookieStore.get("google_oauth_state")?.value ?? null;
-  const codeVerifier = cookieStore.get("google_code_verifier")?.value ?? null;
-  cookieStore.delete("google_oauth_state");
-  cookieStore.delete("google_code_verifier");
+  const storedState = cookieStore.get("github_oauth_state")?.value ?? null;
+
+  cookieStore.delete("github_oauth_state");
 
   try {
     if (
       code === null ||
       state === null ||
       storedState === null ||
-      codeVerifier === null ||
       state !== storedState
     ) {
       throw new Error("auth state error");
     }
 
-    const tokens = await google.validateAuthorizationCode(code, codeVerifier);
-    const unverifiedClaims = decodeIdToken(tokens.idToken());
-    const claims = validateSchemaOrThrow(GoogleClaimSchema, unverifiedClaims);
-    if (!claims.email_verified) {
-      throw new Error("auth unverified email");
-    }
+    const tokens = await github.validateAuthorizationCode(code);
+    const githubUserResponse = await fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: `Bearer ${tokens.accessToken()}`,
+      },
+    });
+    const githubUser = await githubUserResponse.json();
+
+    const claims = validateSchemaOrThrow(GithubClaimSchema, githubUser);
 
     const foundUser = await queryAuthUserByEmail(claims.email);
     if (!foundUser) {

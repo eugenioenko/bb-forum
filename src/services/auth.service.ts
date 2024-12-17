@@ -42,10 +42,10 @@ export async function loginUserOrThrow(
   return authUser;
 }
 
-export async function loginUserByEmailOrThrow(
-  email: string
+export async function loginUserByIdOrThrow(
+  userId: string
 ): Promise<AuthUserModel> {
-  const user = await queryAuthUserByEmail(email);
+  const user = await queryAuthUserById(userId);
   if (!user) {
     throw new HttpException(409, "Email or password does not match");
   }
