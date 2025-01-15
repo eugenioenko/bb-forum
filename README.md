@@ -36,7 +36,7 @@ Follow these steps to set up your local development environment:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/bb-forum.git
+    git clone git@github.com:eugenioenko/bb-forum.git
     cd bb-forum
     ```
 
