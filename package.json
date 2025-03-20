@@ -9,8 +9,9 @@
     "db": "docker-compose up -d",
     "lint": "next lint",
     "prisma:init": "prisma init",
-    "prisma:migrate": "export DATABASE_URL=mysql://root:password@localhost:3306/bb && prisma migrate dev --preview-feature",
     "prisma:generate": "prisma generate",
+    "prisma:initialize": "prisma migrate dev --name initial",
+    "prisma:migrate": "prisma migrate dev --preview-feature",
     "prisma:seed": "prisma db seed",
     "docker:build": "docker build --platform linux/amd64 -t eugenioenko/bbforum:latest .",
     "docker:clean": "docker stop bbforum && docker rm bbforum",
@@ -21,8 +22,8 @@
     "test:headless": "npx vitest --run --browser.headless"
   },
   "prisma": {
-    "schema": "src/prisma/schema.prisma",
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} src/prisma/seed.ts"
+    "schema": "prisma/schema.prisma",
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
     "next": "15.0.4",
@@ -49,7 +50,7 @@
     "arctic": "^2.3.0",
     "axios": "^1.7.9",
     "axios-cache-interceptor": "^1.6.2",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
     "dataloader": "^2.2.3",
     "eslint": "^9.16.0",
     "eslint-config-next": "15.0.4",

@@ -5,7 +5,7 @@ import { LoginSchemaType } from "@/schemas/login-schema";
 import { SignupSchemaType } from "@/schemas/signup-schema";
 import { userToAuthUserMapper } from "@/utils/user-to-auth-user-mapper";
 import { validateSchemaOrThrow } from "@/utils/validate-request";
-import { compare, hash } from "bcrypt";
+import { compare, hash } from "bcryptjs";
 import { sign, verify } from "jsonwebtoken";
 import { cookies } from "next/headers";
 import type { NextRequest } from "next/server";

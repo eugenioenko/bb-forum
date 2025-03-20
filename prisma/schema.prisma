@@ -1,5 +1,5 @@
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -48,7 +48,7 @@ model UserRole {
 
 model Profile {
   id        String   @id @default(uuid())
-  bio       String?  @db.Text
+  bio       String?
   userId    String   @unique
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
@@ -65,7 +65,7 @@ model Section {
 model Category {
   id          String   @id @default(uuid())
   name        String
-  description String?  @db.Text
+  description String?
   sectionId   String
   section     Section  @relation(fields: [sectionId], references: [id])
   threads     Thread[]
@@ -86,7 +86,7 @@ model Thread {
 model Post {
   id        String   @id @default(uuid())
   title     String
-  content   String   @db.Text
+  content   String
   userId    String
   threadId  String
   user      User     @relation(fields: [userId], references: [id])
