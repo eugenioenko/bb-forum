@@ -41,9 +41,9 @@ Follow these steps to set up your local development environment:
    ```
 
 2. Run the following commands:
-   `bash
+   ```bash
     make setup
-    `
+   ````
    `setup` command will cleanup database migrations, install dependencies, initialize prisma and start the server
 
 3. Open your browser and navigate to [http://localhost:4200](http://localhost:4200) to see the result.
