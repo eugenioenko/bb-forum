@@ -27,7 +27,6 @@ BB Forum is a work-in-progress minimalistic bulletin board that allows users to 
 
 To run this project locally, you need to have the following installed:
 
-- **Docker**: A platform for developing, shipping, and running applications in containers.
 - **pnpm**: A fast, disk space-efficient package manager for JavaScript.
 
 ## Getting Started
@@ -35,20 +34,17 @@ To run this project locally, you need to have the following installed:
 Follow these steps to set up your local development environment:
 
 1. Clone the repository:
-    ```bash
-    git clone git@github.com:eugenioenko/bb-forum.git
-    cd bb-forum
-    ```
+
+   ```bash
+   git clone git@github.com:eugenioenko/bb-forum.git
+   cd bb-forum
+   ```
 
 2. Run the following commands:
-    ```bash
-    pnpm db               # Start the database service
-    pnpm install          # Install dependencies
-    pnpm prisma:config    # Configure Prisma
-    pnpm prisma:migrate   # Apply database migrations
-    pnpm prisma:generate   # Generate Prisma client
-    pnpm dev              # Start the development server
-    ```
+   `bash
+    make setup
+    `
+   `setup` command will cleanup database migrations, install dependencies, initialize prisma and start the server
 
 3. Open your browser and navigate to [http://localhost:4200](http://localhost:4200) to see the result.
 

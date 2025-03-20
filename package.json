@@ -10,6 +10,7 @@
     "lint": "next lint",
     "prisma:init": "prisma init",
     "prisma:generate": "prisma generate",
+    "prisma:initialize": "prisma migrate dev --name initial",
     "prisma:migrate": "prisma migrate dev --preview-feature",
     "prisma:seed": "prisma db seed",
     "docker:build": "docker build --platform linux/amd64 -t eugenioenko/bbforum:latest .",
