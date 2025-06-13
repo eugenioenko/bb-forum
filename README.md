@@ -2,7 +2,7 @@
 
 ### > [Live Preview Here](https://bbforum.yy-dev.top)
 
-BB Forum is a work-in-progress minimalistic bulletin board that allows users to create, share, and discuss topics in a user-friendly environment. The forum emphasizes simplicity and usability, making it easy for users to engage with content.
+BB Forum is a minimalistic bulletin board that allows users to create, share, and discuss topics in a user-friendly environment. The forum emphasizes simplicity and usability, making it easy for users to engage with content.
 
 ## Table of Contents
 
