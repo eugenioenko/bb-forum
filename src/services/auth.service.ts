@@ -15,6 +15,7 @@ import {
   queryAuthUserByEmail,
   queryAuthUserById,
 } from "@/queries/server/auth-user.prisma";
+import { StringValue } from "ms";
 
 export async function loginUserOrThrow(
   credentials: LoginSchemaType
@@ -114,14 +115,16 @@ export async function logoutUser(): Promise<void> {
 
 function createAccessToken(userId: string): string {
   const secretKey = process.env.ACCESS_TOKEN_SECRET_KEY || "";
-  const expiresIn = process.env.ACCESS_TOKEN_EXPIRES_IN || "1d";
+  const expiresIn = (process.env.ACCESS_TOKEN_EXPIRES_IN ||
+    "1d") as StringValue;
 
   return sign({ id: userId }, secretKey, { expiresIn });
 }
 
 function createRefreshToken(userId: string): string {
   const secretKey = process.env.REFRESH_TOKEN_SECRET_KEY || "";
-  const expiresIn = process.env.REFRESH_TOKEN_EXPIRES_IN || "1d";
+  const expiresIn = (process.env.REFRESH_TOKEN_EXPIRES_IN ||
+    "1d") as StringValue;
 
   return sign({ id: userId }, secretKey, { expiresIn });
 }
